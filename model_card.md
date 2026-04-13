@@ -1,67 +1,40 @@
 # 🎧 Model Card: Music Recommender Simulation
 
-## 1. Model Name  
+## 1. Model Name
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
-
----
-
-## 2. Intended Use  
-
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+**BeatBuddy 1.0**
 
 ---
 
-## 3. How the Model Works  
+## 2. Goal / Task
 
-Explain your scoring approach in simple language.  
-
-Prompts:  
-
-- What features of each song are used (genre, energy, mood, etc.)  
-- What user preferences are considered  
-- How does the model turn those into a score  
-- What changes did you make from the starter logic  
-
-Avoid code here. Pretend you are explaining the idea to a friend who does not program.
+This recommender suggests songs from a small catalog. It tries to match a user's genre, mood, and audio preferences. It is a classroom demo, not a real streaming app.
 
 ---
 
-## 4. Data  
+## 3. Data Used
 
-Describe the dataset the model uses.  
-
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+The catalog has 50 songs in `data/songs.csv`. Each song has genre, mood, energy, tempo, valence, danceability, and acousticness. The dataset covers many styles like pop, lofi, rock, EDM, jazz, and classical. Some tastes are missing or only weakly represented, like sad songs or very unusual genres.
 
 ---
 
-## 5. Strengths  
+## 4. Data
 
-Where does your system seem to work well  
+The catalog has 50 songs in `data/songs.csv`. It includes genres like pop, lofi, rock, EDM, jazz, hip hop, and classical. It also includes moods like happy, chill, intense, calm, and moody. I changed a few rows to make some songs more similar for testing. Some tastes are still missing, like sad songs and unusual genre combinations.
 
-Prompts:  
+---
 
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+## 5. Strengths
+
+The system works well for users with clear tastes, like Happy Pop, Chill Lofi, or Deep Intense Rock. It does a good job when the song's genre and audio features line up with the user's request. It also handles strong energy or calmness patterns in a way that feels reasonable. In my tests, the top songs often matched the profile I expected.
 
 ---
 
 ## 6. Limitations and Bias 
 
 Where the system struggles or behaves unfairly. 
+
+One weakness I found is that the recommender can over-favor songs that match the user's genre and energy, even when the mood is a poor fit. In my experiments, Gym Hero kept showing up for users who wanted Happy Pop because it is still pop and has very similar energy, danceability, and tempo values. The system also does not penalize mood mismatches, so a sad or conflicting mood does not push a song down very much. This can create a filter bubble where upbeat pop songs appear too often and other styles do not get enough chance to surface. The dataset itself also has a limited set of moods, so some user tastes are not represented well.
 
 Prompts:  
 
@@ -72,40 +45,32 @@ Prompts:
 
 ---
 
-## 7. Evaluation  
+## 6. Evaluation Process
 
-How you checked whether the recommender behaved as expected. 
-
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
+I tested these profiles: High-Energy Pop, Chill Lofi, Deep Intense Rock, Conflict: High Energy + Sad, Conflict: Acoustic Raver, and Edge: Unknown Labels + Out of Range. I checked whether the top songs matched what each profile asked for. I also compared the ranking changes after I shifted the scoring weights. The biggest surprise was that Gym Hero stayed high even when the mood was not a good fit.
 
 ---
 
-## 8. Future Work  
+## 7. Intended Use and Non-Intended Use
 
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+This system is meant for learning and experimentation. It is good for showing how simple features can drive recommendations. It should not be used as a real music app for important decisions. It should also not be treated as fair or complete taste analysis.
 
 ---
 
-## 9. Personal Reflection  
+## 8. Ideas for Improvement
 
-A few sentences about your experience.  
+- Add a penalty when mood does not match.
+- Add more genres, moods, and edge-case songs.
+- Improve diversity so the same song type does not appear too often.
 
-Prompts:  
+---
 
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+## 9. Personal Reflection
+
+My biggest learning moment was seeing how one small scoring choice can change the whole ranking. I learned that a recommender does not need to be complex to seem useful, but it can still repeat the same patterns over and over.
+
+AI tools helped me organize ideas, test edge cases, and explain the results in simpler words. I still had to double-check the numbers and rankings myself, because the model can sound confident even when a result is not the best match.
+
+What surprised me most was that simple rules can still feel like real recommendations when the songs line up well. Even a basic score can seem smart if the genre and energy are close to what the user asked for.
+
+If I extended this project, I would add mood penalties, more song variety, and a way to rank for diversity instead of just closeness. I would also try a richer explanation system so users can see why a song won.

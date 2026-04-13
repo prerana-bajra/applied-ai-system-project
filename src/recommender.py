@@ -107,7 +107,7 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     score = 0.0
 
     if str(song.get("genre", "")).strip().lower() == favorite_genre and favorite_genre:
-        score += 30.0
+        score += 15.0
         reasons.append("genre matches your favorite genre")
 
     if str(song.get("mood", "")).strip().lower() == favorite_mood and favorite_mood:
@@ -127,7 +127,7 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     acousticness_similarity = _normalized_similarity(float(song.get("acousticness", 0.0)), target_acousticness, 1.0)
 
     content_score = (
-        12.0 * energy_similarity
+        24.0 * energy_similarity
         + 12.0 * valence_similarity
         + 10.0 * danceability_similarity
         + 10.0 * tempo_similarity
