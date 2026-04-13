@@ -133,6 +133,11 @@ This flow shows how a single song moves from the CSV file into the scoring loop,
 ![alt text](image-5.png)
 ![alt text](image-6.png)
 
+### Improved version with more features and better scoring logic. 
+The system now considers more song attributes and has a more balanced scoring approach that does not over-prioritize genre or mood. It also includes a small artist bonus to reward users for listening to the same artists.
+
+![alt text](image-7.png)
+
 ---
 
 ## Getting Started
