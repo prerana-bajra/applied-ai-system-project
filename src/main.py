@@ -9,10 +9,36 @@ You will implement the functions in recommender.py:
 - recommend_songs
 """
 
+from textwrap import wrap
+
+from tabulate import tabulate
+
 from recommender import load_songs, recommend_songs
 
 # Score(u,i) = 0.55 * SimContent + 0.20 * MoodMatch + 0.15 * GenreMatch
 #            + 0.05 * ArtistBonus + 0.05 * Novelty, with each term scaled to [0,1].
+
+
+def _print_recommendation_table(recommendations: list[tuple[dict, float, str]]) -> None:
+    headers = ["#", "Title", "Artist", "Genre", "Score", "Reasons"]
+    rows: list[list[str]] = []
+
+    for idx, rec in enumerate(recommendations, start=1):
+        song, score, explanation = rec
+        wrapped_reasons = "\n".join(wrap(explanation, width=64))
+        rows.append(
+            [
+                str(idx),
+                str(song.get("title", "")),
+                str(song.get("artist", "")),
+                str(song.get("genre", "")),
+                f"{score:.2f}",
+                wrapped_reasons,
+            ]
+        )
+
+    print(tabulate(rows, headers=headers, tablefmt="grid"))
+
 
 def main() -> None:
     csv_path = "data/songs.csv"
@@ -89,13 +115,7 @@ def main() -> None:
         recommendations = recommend_songs(user_prefs, songs, k=5)
 
         print(f"\n=== {profile_name} ===\n")
-        for rec in recommendations:
-            # You decide the structure of each returned item.
-            # A common pattern is: (song, score, explanation)
-            song, score, explanation = rec
-            print(f"{song['title']} - Score: {score:.2f}")
-            print(f"Because: {explanation}")
-            print()
+        _print_recommendation_table(recommendations)
 
 
 if __name__ == "__main__":
