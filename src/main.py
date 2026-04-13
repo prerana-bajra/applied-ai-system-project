@@ -11,12 +11,25 @@ You will implement the functions in recommender.py:
 
 from recommender import load_songs, recommend_songs
 
+# Score(u,i) = 0.55 * SimContent + 0.20 * MoodMatch + 0.15 * GenreMatch
+#            + 0.05 * ArtistBonus + 0.05 * Novelty, with each term scaled to [0,1].
 
 def main() -> None:
-    songs = load_songs("data/songs.csv") 
+    csv_path = "data/songs.csv"
+    songs = load_songs(csv_path)
+    print(f"Loading songs from {csv_path}, ({len(songs)} songs) ...")
 
-    # Starter example profile
-    user_prefs = {"genre": "pop", "mood": "happy", "energy": 0.8}
+    # Starter example taste profile
+    user_prefs = {
+        "favorite_genre": "pop",
+        "favorite_mood": "chill",
+        "target_energy": 0.45,
+        "target_tempo_bpm": 80,
+        "target_valence": 0.60,
+        "target_danceability": 0.60,
+        "target_acousticness": 0.75,
+        "likes_acoustic": True,
+    }
 
     recommendations = recommend_songs(user_prefs, songs, k=5)
 
