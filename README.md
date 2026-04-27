@@ -73,10 +73,28 @@ python -m src.main
 python -m src.main --agentic-tune --tune-iterations 3 --top-k 5
 ```
 
-6. Run tests:
+6. Launch the interactive Streamlit demo (baseline vs agentic comparison):
+
+```bash
+streamlit run src/streamlit_app.py
+```
+
+7. Run tests:
 
 ```bash
 python -m pytest -q
+```
+
+8. Run the evaluation harness (predefined profiles + pass/fail summary):
+
+```bash
+python -m src.evaluate
+```
+
+9. Run evaluation harness with agentic tuning enabled:
+
+```bash
+python -m src.evaluate --agentic --tune-iterations 3
 ```
 
 ## Sample Interactions
