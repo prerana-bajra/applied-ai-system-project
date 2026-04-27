@@ -112,6 +112,24 @@ The app is designed for live demos and includes:
 - "What changed" summary showing songs added/removed after tuning.
 - Analytics tab with confidence distribution and rank-shift visualizations.
 
+## Demo Video
+
+Demo file: [assets/beat_buddy_2_0.mov](assets/beat_buddy_2_0.mov)
+
+<video controls width="100%">
+   <source src="assets/beat_buddy_2_0.mov" type="video/quicktime" />
+   Your browser does not support embedded video. Use this direct link instead:
+   <a href="assets/beat_buddy_2_0.mov">BeatBuddy 2.0 Demo Video</a>
+</video>
+
+## Demo Screenshots
+
+### Streamlit Layout
+
+![Streamlit Layout 1](assets/streamlit_layout1.png)
+
+![Streamlit Layout 2](assets/streanlit_layout2.png)
+
 ## Test Harness / Evaluation Script
 
 The project includes a dedicated evaluation harness in `src/evaluate.py`.
