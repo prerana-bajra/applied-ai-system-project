@@ -8,11 +8,18 @@ You will implement the functions in recommender.py:
 - score_song
 - recommend_songs
 """
+import argparse
+from copy import deepcopy
 
 from textwrap import wrap
 
 from tabulate import tabulate
-
+try:
+    from .agentic_workflow import run_agentic_tuning
+    from .recommender import load_songs, recommend_songs
+except ImportError:
+    from agentic_workflow import run_agentic_tuning
+    from recommender import load_songs, recommend_songs
 from recommender import load_songs, recommend_songs
 
 # Score(u,i) = 0.55 * SimContent + 0.20 * MoodMatch + 0.15 * GenreMatch
@@ -40,7 +47,46 @@ def _print_recommendation_table(recommendations: list[tuple[dict, float, str]]) 
     print(tabulate(rows, headers=headers, tablefmt="grid"))
 
 
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Run the music recommender with optional agentic tuning.")
+    parser.add_argument(
+        "--agentic-tune",
+        action="store_true",
+        help="Run the plan-act-check-adjust tuning loop before generating recommendations.",
+    )
+    parser.add_argument(
+        "--tune-iterations",
+        type=int,
+        default=3,
+        help="Number of tuning iterations to run when --agentic-tune is enabled.",
+    )
+    parser.add_argument(
+        "--tune-log-path",
+        type=str,
+        default="logs/agentic_experiment_log.json",
+        help="Path to write agentic experiment logs.",
+    )
+    parser.add_argument(
+        "--top-k",
+        type=int,
+        default=5,
+        help="Number of recommendations to show for each profile.",
+    )
+    return parser.parse_args()
+
+
+def _apply_candidate_to_profiles(user_profiles: dict[str, dict], candidate: dict) -> dict[str, dict]:
+    tuned_profiles: dict[str, dict] = {}
+    for profile_name, profile in user_profiles.items():
+        tuned_profile = deepcopy(profile)
+        tuned_profile["scoring_mode"] = candidate.get("scoring_mode", "balanced")
+        tuned_profile["weight_overrides"] = deepcopy(candidate.get("weight_overrides", {}))
+        tuned_profiles[profile_name] = tuned_profile
+    return tuned_profiles
+
+
 def main() -> None:
+    args = _parse_args()
     csv_path = "data/songs.csv"
     songs = load_songs(csv_path)
     print(f"Loading songs from {csv_path}, ({len(songs)} songs) ...")
@@ -111,8 +157,24 @@ def main() -> None:
         },
     }
 
+    if args.agentic_tune:
+        best_candidate, logs = run_agentic_tuning(
+            songs=songs,
+            user_profiles=user_profiles,
+            iterations=args.tune_iterations,
+            top_k=args.top_k,
+            log_path=args.tune_log_path,
+        )
+
+        print("\n=== Agentic Tuning Summary ===")
+        print(f"Iterations logged: {len(logs)}")
+        print(f"Best scoring mode: {best_candidate.get('scoring_mode', 'balanced')}")
+        print(f"Best weight overrides: {best_candidate.get('weight_overrides', {})}\n")
+
+        user_profiles = _apply_candidate_to_profiles(user_profiles, best_candidate)
+
     for profile_name, user_prefs in user_profiles.items():
-        recommendations = recommend_songs(user_prefs, songs, k=5)
+        recommendations = recommend_songs(user_prefs, songs, k=args.top_k)
 
         print(f"\n=== {profile_name} ===\n")
         _print_recommendation_table(recommendations)

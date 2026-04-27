@@ -71,6 +71,26 @@ def _get_mode_weights(mode: str) -> Dict[str, float]:
     return base_weights
 
 
+def _apply_weight_overrides(weights: Dict[str, float], overrides: Dict) -> Dict[str, float]:
+    """Return a copy of weights with validated numeric overrides applied."""
+    if not overrides:
+        return dict(weights)
+
+    updated_weights = dict(weights)
+    for key, value in overrides.items():
+        if key not in updated_weights:
+            continue
+        try:
+            numeric_value = float(value)
+        except (TypeError, ValueError):
+            continue
+
+        if numeric_value >= 0:
+            updated_weights[key] = numeric_value
+
+    return updated_weights
+
+
 def _select_with_diversity_penalty(
     user_prefs: Dict,
     scored_items: List[Tuple[Dict, float, str]],
@@ -224,6 +244,7 @@ def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
     reasons: List[str] = []
     mode = _get_scoring_mode(user_prefs)
     weights = _get_mode_weights(mode)
+    weights = _apply_weight_overrides(weights, user_prefs.get("weight_overrides", {}))
 
     favorite_genre = str(user_prefs.get("favorite_genre", "")).strip().lower()
     favorite_mood = str(user_prefs.get("favorite_mood", "")).strip().lower()

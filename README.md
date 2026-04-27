@@ -42,14 +42,14 @@ Song features used
 - Acousticness
 - Artist (small bonus signal only)
 
-What the UserProfile stores
+### What the UserProfile stores
 
 - Favorite genre
 - Favorite mood
 - Target energy level
 - Whether the user prefers acoustic sounding songs
 
-Example taste profile
+### Example taste profile
 
 ```python
 taste_profile = {
@@ -64,7 +64,7 @@ taste_profile = {
 }
 ```
 
-How scoring works
+### How scoring works
 
 For each candidate song, the model adds up points based on how well the song matches the user's taste profile.
 
@@ -81,7 +81,7 @@ The similarity features use closeness, so songs that are near the user's target 
 
 One good rule of thumb is that genre should matter a little more than mood, and mood should matter more than any single numeric feature. That keeps the system from being too narrow while still separating songs like intense rock and chill lofi.
 
-Final scoring idea:
+### Final scoring idea:
 
 Score(user, song) = genre points + mood points + similarity points + small artist bonus
 
@@ -94,22 +94,22 @@ Algorithm Recipe
 5. Give a small bonus if the user already listens to that artist.
 6. Score every song, sort from highest to lowest, and return the top k songs.
 
-Potential Biases
+### Potential Biases
 
 This system might over-prioritize genre and exact mood matches, which can cause it to miss great songs that fit the user's energy or acoustic preferences better. It can also favor the most obvious songs in one style and under-recommend songs that are close in sound but use a different genre label.
 
-How recommendations are chosen
+### How recommendations are chosen
 
 1. Compute the score for every song in the catalog.
 2. Sort songs by score in descending order.
 3. Return the top k songs (for example, top 5).
 4. Optionally re-rank to reduce near-duplicate songs and improve diversity.
 
-Simple pipeline
+### Simple pipeline
 
 UserProfile + Song features -> Score each song -> Rank all songs -> Return top recommendations
 
-Data flow map
+### Data flow map
 
 ```mermaid
 flowchart LR
@@ -138,183 +138,44 @@ The system now considers more song attributes and has a more balanced scoring ap
 
 ![alt text](image-7.png)
 
+
 ---
 
-## Getting Started
+## Extended Version (Applied AI)
 
-### Setup
+Add a reliability/testing layer with a few profile-based evaluation cases.
+Add an agentic workflow for automatic experiment runs and weight tuning.
 
-1. Create a virtual environment (optional but recommended):
+### Agentic Workflow Pipeline
 
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate      # Mac or Linux
-   .venv\Scripts\activate         # Windows
-
-2. Install dependencies
-
-```bash
-pip install -r requirements.txt
+```mermaid
+flowchart TD
+  A[Load songs and profile set] --> B[Plan: build initial scoring candidates]
+  B --> C[Act: run recommendations for each candidate across profiles]
+  C --> D[Check: compute objective metrics and rank candidates]
+  D --> E[Adjust: mutate best candidate weights]
+  E --> F{More iterations left?}
+  F -- Yes --> C
+  F -- No --> G[Apply best candidate to final recommendation run]
+  G --> H[Log all experiments to logs/agentic_experiment_log.json]
 ```
 
-3. Run the app:
+### Run Commands
+
+Standard run:
 
 ```bash
 python -m src.main
 ```
 
-### Running Tests
-
-Run the starter tests with:
+Agentic run with tuning and logging:
 
 ```bash
-pytest
+python -m src.main --agentic-tune --tune-iterations 3 --top-k 5
 ```
 
-You can add more tests in `tests/test_recommender.py`.
+Optional custom log path:
 
----
-
-## Experiments You Tried
-
-Use this section to document the experiments you ran. For example:
-
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
-
----
-
-## Limitations and Risks
-
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
-
----
-
-## Reflection
-
-Read and complete `model_card.md`:
-
-[**Model Card**](model_card.md)
-
-Write 1 to 2 paragraphs here about what you learned:
-
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
-
-
----
-
-## 7. `model_card_template.md`
-
-Combines reflection and model card framing from the Module 3 guidance. :contentReference[oaicite:2]{index=2}  
-
-```markdown
-# 🎧 Model Card - Music Recommender Simulation
-
-## 1. Model Name
-
-Give your recommender a name, for example:
-
-> VibeFinder 1.0
-
----
-
-## 2. Intended Use
-
-- What is this system trying to do
-- Who is it for
-
-Example:
-
-> This model suggests 3 to 5 songs from a small catalog based on a user's preferred genre, mood, and energy level. It is for classroom exploration only, not for real users.
-
----
-
-## 3. How It Works (Short Explanation)
-
-Describe your scoring logic in plain language.
-
-- What features of each song does it consider
-- What information about the user does it use
-- How does it turn those into a number
-
-Try to avoid code in this section, treat it like an explanation to a non programmer.
-
----
-
-## 4. Data
-
-Describe your dataset.
-
-- How many songs are in `data/songs.csv`
-- Did you add or remove any songs
-- What kinds of genres or moods are represented
-- Whose taste does this data mostly reflect
-
----
-
-## 5. Strengths
-
-Where does your recommender work well
-
-You can think about:
-- Situations where the top results "felt right"
-- Particular user profiles it served well
-- Simplicity or transparency benefits
-
----
-
-## 6. Limitations and Bias
-
-Where does your recommender struggle
-
-Some prompts:
-- Does it ignore some genres or moods
-- Does it treat all users as if they have the same taste shape
-- Is it biased toward high energy or one genre by default
-- How could this be unfair if used in a real product
-
----
-
-## 7. Evaluation
-
-How did you check your system
-
-Examples:
-- You tried multiple user profiles and wrote down whether the results matched your expectations
-- You compared your simulation to what a real app like Spotify or YouTube tends to recommend
-- You wrote tests for your scoring logic
-
-You do not need a numeric metric, but if you used one, explain what it measures.
-
----
-
-## 8. Future Work
-
-If you had more time, how would you improve this recommender
-
-Examples:
-
-- Add support for multiple users and "group vibe" recommendations
-- Balance diversity of songs instead of always picking the closest match
-- Use more features, like tempo ranges or lyric themes
-
----
-
-## 9. Personal Reflection
-
-A few sentences about what you learned:
-
-- What surprised you about how your system behaved
-- How did building this change how you think about real music recommenders
-- Where do you think human judgment still matters, even if the model seems "smart"
-
+```bash
+python -m src.main --agentic-tune --tune-iterations 4 --tune-log-path logs/custom_agentic_log.json
+```
