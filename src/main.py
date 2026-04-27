@@ -20,7 +20,6 @@ try:
 except ImportError:
     from agentic_workflow import run_agentic_tuning
     from recommender import load_songs, recommend_songs
-from recommender import load_songs, recommend_songs
 
 # Score(u,i) = 0.55 * SimContent + 0.20 * MoodMatch + 0.15 * GenreMatch
 #            + 0.05 * ArtistBonus + 0.05 * Novelty, with each term scaled to [0,1].
