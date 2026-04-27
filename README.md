@@ -162,6 +162,14 @@ These examples use real outputs from the current codebase so reviewers can run t
 
 ### Example 1: Baseline evaluation harness run
 
+**Input:**
+
+```text
+Mode: baseline (no agentic tuning)
+Top-k: 5 (default)
+Profiles: predefined profile set in src/evaluate.py
+```
+
 **Command:**
 
 ```bash
@@ -185,6 +193,16 @@ OVERALL: PASS
 
 ### Example 2: Per-profile baseline outputs
 
+**Input:**
+
+```text
+Mode: baseline (no agentic tuning)
+Profile inputs (subset shown):
+- High-Energy Pop: genre=pop, mood=happy, target_energy=0.90
+- Chill Lofi: genre=lofi, mood=chill, target_energy=0.30
+- Deep Intense Rock: genre=rock, mood=intense, target_energy=0.95
+```
+
 **Command:**
 
 ```bash
@@ -201,6 +219,15 @@ Deep Intense Rock: top='Storm Runner', genre_match=True, mood_match=True, avg_co
 ```
 
 ### Example 3: Agentic evaluation harness run
+
+**Input:**
+
+```text
+Mode: agentic tuning enabled
+Tuning iterations: 3
+Top-k: 5 (default)
+Profiles: same predefined profile set in src/evaluate.py
+```
 
 **Command:**
 
