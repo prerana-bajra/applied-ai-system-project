@@ -158,53 +158,69 @@ OVERALL: PASS
 
 ## Sample Interactions
 
-### Example 1: High-Energy Pop profile
+These examples use real outputs from the current codebase so reviewers can run the same commands and compare results.
 
-**Input:**
-
-```text
-favorite_genre=pop, favorite_mood=happy, target_energy=0.90
-```
-
-**Output excerpt:**
-
-```text
-1) Sunrise City (pop) - score 124.50
-2) Rooftop Lights (pop) - score 113.86
-3) Gym Hero (pop) - score 83.08
-```
-
-### Example 2: Chill Lofi profile
-
-**Input:**
-
-```text
-favorite_genre=lofi, favorite_mood=chill, target_energy=0.30
-```
-
-**Output excerpt:**
-
-```text
-1) Library Rain (lofi) - score 124.06
-2) Focus Flow (lofi) - score 114.12
-3) Spacewalk Thoughts (ambient) - score 92.79
-```
-
-### Example 3: Agentic run summary
+### Example 1: Baseline evaluation harness run
 
 **Command:**
 
 ```bash
-python -m src.main --agentic-tune --tune-iterations 3 --top-k 5
+python -m src.evaluate
 ```
 
-**Output excerpt:**
+**Output excerpt (actual):**
 
 ```text
-Agentic Tuning Summary
-Iterations logged: 12
-Best scoring mode: genre-first
-Best weight overrides: {'mood': 23.0}
+=== Evaluation Harness Summary ===
+Songs evaluated: 50
+Profiles evaluated: 6
+Agentic tuning: disabled
+--- Metrics ---
+genre_hit_rate: 0.8333
+mood_hit_rate: 0.6667
+avg_confidence: 0.7981
+objective_score: 0.7614
+OVERALL: PASS
+```
+
+### Example 2: Per-profile baseline outputs
+
+**Command:**
+
+```bash
+python -m src.evaluate
+```
+
+**Output excerpt (actual):**
+
+```text
+--- Per Profile Snapshot ---
+High-Energy Pop: top='Sunrise City', genre_match=True, mood_match=True, avg_confidence=0.7192
+Chill Lofi: top='Library Rain', genre_match=True, mood_match=True, avg_confidence=0.7559
+Deep Intense Rock: top='Storm Runner', genre_match=True, mood_match=True, avg_confidence=0.7174
+```
+
+### Example 3: Agentic evaluation harness run
+
+**Command:**
+
+```bash
+python -m src.evaluate --agentic --tune-iterations 3
+```
+
+**Output excerpt (actual):**
+
+```text
+=== Evaluation Harness Summary ===
+Songs evaluated: 50
+Profiles evaluated: 6
+Agentic tuning: enabled (mode=genre-first, overrides={'mood': 23.0})
+--- Metrics ---
+genre_hit_rate: 0.8333
+mood_hit_rate: 0.6667
+avg_confidence: 0.7620
+objective_score: 0.7560
+OVERALL: PASS
 ```
 
 ## Design Decisions and Trade-offs
