@@ -1,76 +1,95 @@
-# 🎧 Model Card: Music Recommender Simulation
+# Model Card: Music Recommender with Agentic Tuning
 
 ## 1. Model Name
 
-**BeatBuddy 1.0**
+BeatBuddy 1.0
 
----
+## 2. Base Project and Task
 
-## 2. Goal / Task
+Base project: Module 1-3 Music Recommender Simulation.
 
-This recommender suggests songs from a small catalog. It tries to match a user's genre, mood, and audio preferences. It is a classroom demo, not a real streaming app.
-
----
+Task: Recommend top-k songs from a small catalog by matching a user profile to song metadata (genre, mood, energy, tempo, valence, danceability, acousticness), then explain why each song was selected.
 
 ## 3. Data Used
 
-The catalog has 50 songs in `data/songs.csv`. Each song has genre, mood, energy, tempo, valence, danceability, and acousticness. The dataset covers many styles like pop, lofi, rock, EDM, jazz, and classical. Some tastes are missing or only weakly represented, like sad songs or very unusual genres.
+- Source: [data/songs.csv](data/songs.csv)
+- Size: 50 songs
+- Key fields: genre, mood, energy, tempo_bpm, valence, danceability, acousticness, plus extended metadata (popularity, release decade, mood tags, instrumental ratio)
+- Coverage note: common genres are represented more than niche combinations or rare moods.
 
----
+## 4. Intended Use and Non-Intended Use
 
-## 4. Data
-
-The catalog has 50 songs in `data/songs.csv`. It includes genres like pop, lofi, rock, EDM, jazz, hip hop, and classical. It also includes moods like happy, chill, intense, calm, and moody. I changed a few rows to make some songs more similar for testing. Some tastes are still missing, like sad songs and unusual genre combinations.
-
----
+- Intended use: learning/demo environment for recommendation logic, reliability checks, and agentic tuning workflows.
+- Non-intended use: production personalization, high-stakes decisions, or fairness-sensitive ranking at scale.
 
 ## 5. Strengths
 
-The system works well for users with clear tastes, like Happy Pop, Chill Lofi, or Deep Intense Rock. It does a good job when the song's genre and audio features line up with the user's request. It also handles strong energy or calmness patterns in a way that feels reasonable. In my tests, the top songs often matched the profile I expected.
+- Transparent and explainable scoring pipeline.
+- Works well for clear profiles (for example, high-energy pop or chill lofi).
+- Agentic tuning loop improves repeatability by logging candidate configurations and evaluation metrics.
 
----
+## 6. Limitations and Biases
 
-## 6. Limitations and Bias 
+- Label bias: genre and mood labels are subjective and can encode cultural bias.
+- Representation bias: small curated dataset under-represents unusual tastes and nuanced mood combinations.
+- Preference overfit risk: strong feature weights can repeatedly favor a narrow style.
+- Missing signals: no lyrics, listening session context, language preference, or user feedback loop.
 
-Where the system struggles or behaves unfairly. 
+Observed example: songs with strong energy and genre alignment can rank high even when mood alignment is weaker, which may create repetitive recommendation patterns.
 
-One weakness I found is that the recommender can over-favor songs that match the user's genre and energy, even when the mood is a poor fit. In my experiments, Gym Hero kept showing up for users who wanted Happy Pop because it is still pop and has very similar energy, danceability, and tempo values. The system also does not penalize mood mismatches, so a sad or conflicting mood does not push a song down very much. This can create a filter bubble where upbeat pop songs appear too often and other styles do not get enough chance to surface. The dataset itself also has a limited set of moods, so some user tastes are not represented well.
+## 7. Reliability and Testing Results
 
-Prompts:  
+### Evaluation process
 
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+- Automated tests: `python -m pytest -q`
+- Profile-based checks across six personas:
+	- High-Energy Pop
+	- Chill Lofi
+	- Deep Intense Rock
+	- Conflict: High Energy + Sad
+	- Conflict: Acoustic Raver
+	- Edge: Unknown Labels + Out of Range
+- Agentic metrics per candidate:
+	- genre_hit_rate
+	- mood_hit_rate
+	- explanation_rate
+	- objective_score
 
----
+### Quantitative results
 
-## 6. Evaluation Process
+- 4/4 tests passed.
+- Recent agentic run (12 evaluations) best candidate reached:
+	- genre_hit_rate = 0.8333
+	- mood_hit_rate = 0.6667
+	- explanation_rate = 1.0
+	- objective_score = 0.7899
 
-I tested these profiles: High-Energy Pop, Chill Lofi, Deep Intense Rock, Conflict: High Energy + Sad, Conflict: Acoustic Raver, and Edge: Unknown Labels + Out of Range. I checked whether the top songs matched what each profile asked for. I also compared the ranking changes after I shifted the scoring weights. The biggest surprise was that Gym Hero stayed high even when the mood was not a good fit.
+### Reliability findings
 
----
+- Biggest early failures were software reliability issues (import path and missing dependency), not ranking math.
+- Iteration logs improved debugging and made tuning decisions auditable.
 
-## 7. Intended Use and Non-Intended Use
+## 8. AI Collaboration Reflection
 
-This system is meant for learning and experimentation. It is good for showing how simple features can drive recommendations. It should not be used as a real music app for important decisions. It should also not be treated as fair or complete taste analysis.
+I used AI as a coding assistant for brainstorming, drafting, and implementation acceleration, while validating behavior with tests and runtime checks.
 
----
+- Helpful AI suggestion: add iteration-level experiment logging (candidate config + metrics). This improved reproducibility and made comparisons across runs straightforward.
+- Flawed AI suggestion: an import edit introduced an extra absolute import that broke module execution (`python -m src.main`). I detected this during runtime testing and corrected imports to support package execution reliably.
 
-## 8. Ideas for Improvement
+Main lesson: AI assistance is most useful when paired with verification discipline (tests, command-line validation, and code review).
 
-- Add a penalty when mood does not match.
-- Add more genres, moods, and edge-case songs.
-- Improve diversity so the same song type does not appear too often.
+## 9. Safety and Misuse Considerations
 
----
+Potential misuse includes manipulating rankings toward narrow commercial goals or reinforcing repetitive content loops. Mitigations used or recommended:
 
-## 9. Personal Reflection
+- Keep scoring criteria explicit and inspectable.
+- Preserve diversity penalties to reduce over-concentration.
+- Log every agentic tuning step for auditability.
+- Require human review before adopting new scoring configurations.
 
-My biggest learning moment was seeing how one small scoring choice can change the whole ranking. I learned that a recommender does not need to be complex to seem useful, but it can still repeat the same patterns over and over.
+## 10. Improvement Roadmap
 
-AI tools helped me organize ideas, test edge cases, and explain the results in simpler words. I still had to double-check the numbers and rankings myself, because the model can sound confident even when a result is not the best match.
-
-What surprised me most was that simple rules can still feel like real recommendations when the songs line up well. Even a basic score can seem smart if the genre and energy are close to what the user asked for.
-
-If I extended this project, I would add mood penalties, more song variety, and a way to rank for diversity instead of just closeness. I would also try a richer explanation system so users can see why a song won.
+- Add explicit mood mismatch penalties.
+- Expand catalog diversity (genres, moods, language, era).
+- Introduce user feedback signals and offline validation datasets.
+- Add calibration for objective_score thresholds to better reflect recommendation confidence.

@@ -8,6 +8,8 @@ This project builds a music recommendation system that ranks songs based on how 
 
 **Original project name:** Music Recommender Simulation (Modules 1-3).
 
+**Base project identifier for this extension:** Module 1-3 Music Recommender Simulation (content-based recommender baseline).
+
 The original version focused on content-based recommendation using explicit user preferences such as genre, mood, and energy. It could load songs from CSV, compute a score per song, and return top-k recommendations with text explanations. The extension in this repo keeps that core capability and adds automatic experiment runs plus logging-driven tuning.
 
 ## Design and Architecture: How the System Fits Together
