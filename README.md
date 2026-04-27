@@ -4,11 +4,11 @@
 
 BeatBuddy 2.0 is a music recommendation app that ranks songs based on how well each track matches a user taste profile. The system started as a rule-based recommender and was extended with an agentic workflow that automatically runs experiments, evaluates performance, and tunes scoring weights. This matters because it demonstrates a practical Applied AI pattern: combine transparent scoring logic with iterative, testable improvement loops.
 
-## Original Project (Modules 1-3)
+## Original Project
 
-**Original project name:** Music Recommender Simulation (Modules 1-3).
+**Original project name:** Music Recommender Simulation (BeatBuddy 1.0).
 
-**Base project identifier for this extension:** Module 1-3 Music Recommender Simulation (content-based recommender baseline).
+**Base project identifier for this extension:** Music Recommender Simulation (content-based recommender baseline).
 
 The original version focused on content-based recommendation using explicit user preferences such as genre, mood, and energy. It could load songs from CSV, compute a score per song, and return top-k recommendations with text explanations. The extension in this repo keeps that core capability and adds automatic experiment runs plus logging-driven tuning.
 
