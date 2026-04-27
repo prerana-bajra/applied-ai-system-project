@@ -145,6 +145,22 @@ Best weight overrides: {'mood': 23.0}
    - Benefit: reduces repetitive recommendations.
    - Trade-off: can lower pure match score for stronger diversity.
 
+## Reliability and Evaluation: How I Test and Improve the AI
+
+This project includes multiple reliability checks so performance is measured, not assumed.
+
+- **Automated tests**: `python -m pytest -q` currently reports **4 out of 4 tests passed**.
+- **Metric-based evaluation**: each agentic candidate run computes `genre_hit_rate`, `mood_hit_rate`, `explanation_rate`, and `objective_score` across 6 profiles.
+- **Confidence-like signal**: the `objective_score` (0 to 1) is used as a confidence proxy when comparing candidate scoring configurations.
+- **Logging and error handling**: every tuning step is stored in `logs/agentic_experiment_log.json`; log loading is fail-safe and defaults to an empty history if JSON is missing/corrupt.
+- **Human evaluation**: recommendation outputs are manually inspected for plausibility, diversity, and explanation quality.
+
+### Quantitative Summary
+
+- **4/4 tests passed** after integrating the agentic workflow.
+- In a recent tuning run (12 logged evaluations), top configuration reached **genre hit rate = 0.8333**, **mood hit rate = 0.6667**, **explanation coverage = 1.0**, and **objective score = 0.7899**.
+- Main failure mode observed during development: import/runtime setup issues (packaging path and missing dependency), resolved with import cleanup and environment setup.
+
 ## Testing Summary
 
 ### What worked
