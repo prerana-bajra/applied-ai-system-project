@@ -180,8 +180,23 @@ This project includes multiple reliability checks so performance is measured, no
 - Agent loops are most useful when metrics are explicit and logged every iteration.
 - Adding tests for both output quality and pipeline behavior prevents silent regressions.
 
-## Reflection
+## Reflection and Ethics
 
-This project reinforced that practical AI systems are not only about model outputs; they are about workflow quality, observability, and repeatable evaluation. The agentic extension showed how quickly a system can improve when plan, action, and checking are automated around clear metrics.
+### What are the limitations or biases in this system?
 
-It also highlighted trade-offs in recommendation systems: optimizing for precision can reduce diversity, and optimizing for diversity can weaken strict profile matching. The best approach in production is iterative, test-driven tuning with human review of edge cases.
+This recommender is still a rules-and-weights system, so it reflects the assumptions built into those weights. Genre and mood labels can be noisy or culturally biased, and strong genre matching can over-recommend mainstream categories while under-representing niche styles. The dataset is small and curated, so performance may not generalize to real user behavior, multilingual catalogs, or rapidly changing tastes.
+
+### Could this AI be misused, and how would I prevent that?
+
+A recommender can be misused to push narrow content loops, prioritize commercial goals over user well-being, or quietly suppress certain artists. To reduce misuse, I would keep ranking criteria transparent, retain diversity penalties, and add policy checks for harmful optimization objectives. I would also require logging and human review for configuration changes so that aggressive tuning decisions are auditable before deployment.
+
+### What surprised me while testing reliability?
+
+I expected model-like tuning to be the hardest part, but reliability issues were initially caused by software plumbing: import-path and environment dependency errors. After those were fixed, the system became stable quickly, and metric logging made the tuning loop much easier to reason about. Another surprise was that explanation coverage stayed consistently high even when mood hit rate was lower, which showed that readable output does not always mean better recommendation quality.
+
+### Collaboration with AI during this project
+
+I used AI as a coding copilot for implementation speed and review support, not as an unquestioned authority.
+
+- Helpful suggestion: the AI proposed adding an experiment log for each tuning iteration (candidate config plus metrics). That made the agentic workflow reproducible and significantly improved debugging and comparison across runs.
+- Flawed suggestion: one AI-generated import change introduced an extra absolute import that broke module execution (`python -m src.main`). I caught this through runtime testing and corrected the import structure so both package and script paths work correctly.
