@@ -1606,5 +1606,425 @@
       "avg_top_score": 102.4156,
       "objective_score": 0.7917
     }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.411453+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 92.0589,
+      "objective_score": 0.7877
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.413435+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 96.4156,
+      "objective_score": 0.7899
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.415308+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.4159,
+      "objective_score": 0.7894
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.417250+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.5,
+      "explanation_rate": 1.0,
+      "avg_top_score": 105.3922,
+      "objective_score": 0.725
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.419259+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 96.4156,
+      "objective_score": 0.7899
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.421219+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.4159,
+      "objective_score": 0.7894
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.423065+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 92.0589,
+      "objective_score": 0.7877
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.425078+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 100.9156,
+      "objective_score": 0.7917
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.427034+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 100.9156,
+      "objective_score": 0.7917
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.429012+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 96.4156,
+      "objective_score": 0.7899
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.430941+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.4159,
+      "objective_score": 0.7894
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:12:19.432865+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "iter-2-adjusted",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {
+        "mood": 26.0
+      }
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 102.4156,
+      "objective_score": 0.7917
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.886092+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 92.0589,
+      "objective_score": 0.7877
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.888009+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 96.4156,
+      "objective_score": 0.7899
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.889937+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.4159,
+      "objective_score": 0.7894
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.891912+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.5,
+      "explanation_rate": 1.0,
+      "avg_top_score": 105.3922,
+      "objective_score": 0.725
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.893872+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 96.4156,
+      "objective_score": 0.7899
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.895760+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.4159,
+      "objective_score": 0.7894
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.897814+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 92.0589,
+      "objective_score": 0.7877
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.899856+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 100.9156,
+      "objective_score": 0.7917
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.901774+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 100.9156,
+      "objective_score": 0.7917
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.903606+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 96.4156,
+      "objective_score": 0.7899
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.905630+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.4159,
+      "objective_score": 0.7894
+    }
+  },
+  {
+    "timestamp_utc": "2026-04-27T04:16:10.907568+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "iter-2-adjusted",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {
+        "mood": 26.0
+      }
+    },
+    "metrics": {
+      "profile_count": 6,
+      "genre_hit_rate": 0.8333,
+      "mood_hit_rate": 0.6667,
+      "explanation_rate": 1.0,
+      "avg_top_score": 102.4156,
+      "objective_score": 0.7917
+    }
   }
 ]

@@ -1,8 +1,8 @@
-# Model Card: Music Recommender with Agentic Tuning
+# Model Card: BeatBuddy 2.0
 
 ## 1. Model Name
 
-BeatBuddy 1.0
+BeatBuddy 2.0
 
 ## 2. Base Project and Task
 

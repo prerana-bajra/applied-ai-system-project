@@ -1,8 +1,8 @@
-# Music Recommender with Agentic Tuning
+# BeatBuddy 2.0
 
 ## Title and Summary
 
-This project builds a music recommendation system that ranks songs based on how well each track matches a user taste profile. The system started as a rule-based recommender and was extended with an agentic workflow that automatically runs experiments, evaluates performance, and tunes scoring weights. This matters because it demonstrates a practical Applied AI pattern: combine transparent scoring logic with iterative, testable improvement loops.
+BeatBuddy 2.0 is a music recommendation app that ranks songs based on how well each track matches a user taste profile. The system started as a rule-based recommender and was extended with an agentic workflow that automatically runs experiments, evaluates performance, and tunes scoring weights. This matters because it demonstrates a practical Applied AI pattern: combine transparent scoring logic with iterative, testable improvement loops.
 
 ## Original Project (Modules 1-3)
 

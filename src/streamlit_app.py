@@ -219,8 +219,8 @@ def _rank_shift_frame(before: pd.DataFrame, after: pd.DataFrame) -> pd.DataFrame
 
 
 def main() -> None:
-    st.set_page_config(page_title="Music Recommender Demo", layout="wide")
-    st.title("Music Recommender Demo: Baseline vs Agentic Tuning")
+    st.set_page_config(page_title="BeatBuddy 2.0", layout="wide")
+    st.title("BeatBuddy 2.0: Baseline vs Agentic Tuning")
 
     st.markdown(
         "This interactive demo shows **what** was recommended, **how** it was scored, and **why** outputs change "
