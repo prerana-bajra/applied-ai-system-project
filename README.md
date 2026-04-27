@@ -79,6 +79,11 @@ python -m src.main --agentic-tune --tune-iterations 3 --top-k 5
 streamlit run src/streamlit_app.py
 ```
 
+The Streamlit demo now includes two tabs:
+
+- **Recommendations: What/How/Why**: side-by-side baseline vs agentic results with explanation text.
+- **Analytics: Confidence and Rank Shift**: confidence distribution charts and rank-shift charts/table to show what changed after tuning.
+
 7. Run tests:
 
 ```bash
@@ -95,6 +100,42 @@ python -m src.evaluate
 
 ```bash
 python -m src.evaluate --agentic --tune-iterations 3
+```
+
+## Interactive Demo Highlights (Streamlit)
+
+The app is designed for live demos and includes:
+
+- Preset input profiles (at least 3) plus editable controls for genre, mood, and numeric targets.
+- Baseline vs agentic tuned recommendations shown side-by-side.
+- Confidence score per recommendation.
+- "What changed" summary showing songs added/removed after tuning.
+- Analytics tab with confidence distribution and rank-shift visualizations.
+
+## Test Harness / Evaluation Script
+
+The project includes a dedicated evaluation harness in `src/evaluate.py`.
+
+- Runs multiple predefined profiles automatically.
+- Computes reliability metrics: `genre_hit_rate`, `mood_hit_rate`, `avg_confidence`, and `objective_score`.
+- Prints threshold checks and a clear `OVERALL: PASS/FAIL` result.
+- Supports both baseline and agentic modes.
+
+Example runs:
+
+```bash
+python -m src.evaluate
+python -m src.evaluate --agentic --tune-iterations 3
+```
+
+Example summary (baseline run):
+
+```text
+genre_hit_rate: 0.8333
+mood_hit_rate: 0.6667
+avg_confidence: 0.7981
+objective_score: 0.7614
+OVERALL: PASS
 ```
 
 ## Sample Interactions
@@ -174,6 +215,13 @@ This project includes multiple reliability checks so performance is measured, no
 - **Confidence-like signal**: the `objective_score` (0 to 1) is used as a confidence proxy when comparing candidate scoring configurations.
 - **Logging and error handling**: every tuning step is stored in `logs/agentic_experiment_log.json`; log loading is fail-safe and defaults to an empty history if JSON is missing/corrupt.
 - **Human evaluation**: recommendation outputs are manually inspected for plausibility, diversity, and explanation quality.
+
+### Guardrails currently implemented
+
+- Weight overrides are constrained to known keys and non-negative numeric values.
+- Optional explicit-content penalty can reduce ranking score for explicit songs.
+- Agentic experiment logs are fault-tolerant to missing/corrupt JSON.
+- Evaluation harness enforces threshold checks and reports pass/fail.
 
 ### Quantitative Summary
 
