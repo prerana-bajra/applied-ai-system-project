@@ -8,9 +8,11 @@ import streamlit as st
 
 try:
     from .agentic_workflow import run_agentic_tuning
+    from .google_ai import generate_ai_recommendation_summary
     from .recommender import load_songs, recommend_songs, score_song
 except ImportError:
     from agentic_workflow import run_agentic_tuning
+    from google_ai import generate_ai_recommendation_summary
     from recommender import load_songs, recommend_songs, score_song
 
 
@@ -98,6 +100,10 @@ def _run_tuning(
         top_k=top_k,
         log_path="logs/agentic_experiment_log.json",
     )
+
+
+def _ai_summary(user_prefs: Dict, recommendations: List[tuple[Dict, float, str]], mode_label: str) -> str:
+    return generate_ai_recommendation_summary(user_prefs, recommendations, mode_label=mode_label)
 
 
 def _confidence_lookup(user_prefs: Dict, songs: List[Dict]) -> Dict[int, float]:
@@ -220,7 +226,7 @@ def _rank_shift_frame(before: pd.DataFrame, after: pd.DataFrame) -> pd.DataFrame
 
 def main() -> None:
     st.set_page_config(page_title="BeatBuddy 2.0", layout="wide")
-    st.title("BeatBuddy 2.0: Baseline vs Agentic Tuning")
+    st.title("BeatBuddy 2.0: Baseline, AI Output, and Agentic Tuning")
 
     st.markdown(
         "This interactive demo shows **what** was recommended, **how** it was scored, and **why** outputs change "
@@ -242,14 +248,25 @@ def main() -> None:
     top_k = st.sidebar.slider("Top-K recommendations", min_value=3, max_value=8, value=5)
     tune_iterations = st.sidebar.slider("Agentic tuning iterations", min_value=1, max_value=6, value=3)
     enable_diversity = st.sidebar.checkbox("Enable diversity penalty", value=True)
+    output_mode = st.sidebar.radio(
+        "Output mode",
+        ["rule", "ai", "agentic", "agentic-ai"],
+        index=0,
+        help="Rule uses the deterministic scorer; AI adds a Google-generated summary; agentic tunes the scorer first.",
+    )
+    ai_mode_enabled = output_mode in {"ai", "agentic-ai"}
+    agentic_enabled = output_mode in {"agentic", "agentic-ai"}
 
     baseline_profile = deepcopy(selected_profile)
     baseline_profile["scoring_mode"] = "balanced"
     baseline_profile["weight_overrides"] = {}
     baseline_profile["enable_diversity_penalty"] = enable_diversity
 
-    with st.spinner("Running agentic tuning for comparison..."):
-        best_candidate, run_logs = _run_tuning(songs, profile_templates, tune_iterations, top_k)
+    best_candidate = {"scoring_mode": "balanced", "weight_overrides": {}}
+    run_logs: List[Dict] = []
+    if agentic_enabled:
+        with st.spinner("Running agentic tuning for comparison..."):
+            best_candidate, run_logs = _run_tuning(songs, profile_templates, tune_iterations, top_k)
 
     tuned_profile = deepcopy(selected_profile)
     tuned_profile["scoring_mode"] = best_candidate.get("scoring_mode", "balanced")
@@ -265,32 +282,38 @@ def main() -> None:
     rank_shift_df = _rank_shift_frame(baseline_df, tuned_df)
 
     baseline_distribution = _confidence_distribution_frame(baseline_confidence_lookup, "Baseline")
-    tuned_distribution = _confidence_distribution_frame(tuned_confidence_lookup, "Agentic")
+    tuned_distribution = _confidence_distribution_frame(
+        tuned_confidence_lookup,
+        "Agentic" if agentic_enabled else "Rule-Based",
+    )
     confidence_distribution = pd.concat([baseline_distribution, tuned_distribution], ignore_index=True)
 
     summary_col1, summary_col2, summary_col3 = st.columns(3)
-    summary_col1.metric("Agentic scoring mode", tuned_profile["scoring_mode"])
-    summary_col2.metric("Tuning evaluations logged", len(run_logs))
-    summary_col3.metric("Average score delta", diff["avg_change"])
+    summary_col1.metric("Output mode", output_mode)
+    summary_col2.metric("Agentic scoring mode", tuned_profile["scoring_mode"])
+    summary_col3.metric("Tuning evaluations logged", len(run_logs))
 
     tab_recommendations, tab_analytics = st.tabs(
         ["Recommendations: What/How/Why", "Analytics: Confidence and Rank Shift"]
     )
 
     with tab_recommendations:
-        st.markdown("### Baseline (No Agentic Tuning) vs Agentic-Tuned Output")
+        st.markdown("### Baseline (Rule-Based) vs Active Output")
         left_col, right_col = st.columns(2)
 
         with left_col:
-            st.subheader("Without Agentic AI")
+            st.subheader("Baseline output")
             st.caption("Balanced scoring mode, no weight overrides")
             st.dataframe(baseline_df.drop(columns=["ConfidenceScore"]), use_container_width=True)
 
         with right_col:
-            st.subheader("With Agentic AI")
-            st.caption(
-                f"Scoring mode: {tuned_profile['scoring_mode']}; overrides: {tuned_profile['weight_overrides']}"
-            )
+            st.subheader("Active output")
+            if agentic_enabled:
+                st.caption(
+                    f"Scoring mode: {tuned_profile['scoring_mode']}; overrides: {tuned_profile['weight_overrides']}"
+                )
+            else:
+                st.caption("Rule-based scoring with no agentic tuning")
             st.dataframe(tuned_df.drop(columns=["ConfidenceScore"]), use_container_width=True)
 
         st.markdown("### What Changed After Agentic Addition")
@@ -305,6 +328,12 @@ def main() -> None:
             "Each recommendation includes a feature-level explanation in the **Why** column. "
             "Confidence is computed by normalizing each song's raw score within the full catalog for the active profile."
         )
+
+        if ai_mode_enabled:
+            st.markdown("### AI-Generated Summary")
+            ai_profile = tuned_profile if agentic_enabled else baseline_profile
+            ai_recommendations = recommend_songs(ai_profile, songs, k=top_k)
+            st.write(_ai_summary(ai_profile, ai_recommendations, output_mode))
 
         with st.expander("Show tuning objective details"):
             if run_logs:

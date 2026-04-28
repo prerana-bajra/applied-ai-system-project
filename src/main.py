@@ -16,9 +16,11 @@ from textwrap import wrap
 from tabulate import tabulate
 try:
     from .agentic_workflow import run_agentic_tuning
+    from .google_ai import generate_ai_recommendation_summary
     from .recommender import load_songs, recommend_songs
 except ImportError:
     from agentic_workflow import run_agentic_tuning
+    from google_ai import generate_ai_recommendation_summary
     from recommender import load_songs, recommend_songs
 
 # Score(u,i) = 0.55 * SimContent + 0.20 * MoodMatch + 0.15 * GenreMatch
@@ -49,6 +51,13 @@ def _print_recommendation_table(recommendations: list[tuple[dict, float, str]]) 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run the music recommender with optional agentic tuning.")
     parser.add_argument(
+        "--mode",
+        type=str,
+        default="rule",
+        choices=["rule", "ai", "agentic", "agentic-ai"],
+        help="Choose rule-based output, AI-generated output, agentic tuning, or both.",
+    )
+    parser.add_argument(
         "--agentic-tune",
         action="store_true",
         help="Run the plan-act-check-adjust tuning loop before generating recommendations.",
@@ -71,6 +80,12 @@ def _parse_args() -> argparse.Namespace:
         default=5,
         help="Number of recommendations to show for each profile.",
     )
+    parser.add_argument(
+        "--ai-model",
+        type=str,
+        default="gemini-flash-latest",
+        help="Google AI model name to use when --mode includes AI output.",
+    )
     return parser.parse_args()
 
 
@@ -86,6 +101,10 @@ def _apply_candidate_to_profiles(user_profiles: dict[str, dict], candidate: dict
 
 def main() -> None:
     args = _parse_args()
+    effective_mode = args.mode
+    if args.agentic_tune and effective_mode == "rule":
+        effective_mode = "agentic"
+
     csv_path = "data/songs.csv"
     songs = load_songs(csv_path)
     print(f"Loading songs from {csv_path}, ({len(songs)} songs) ...")
@@ -156,7 +175,10 @@ def main() -> None:
         },
     }
 
-    if args.agentic_tune:
+    use_agentic = args.agentic_tune or effective_mode in {"agentic", "agentic-ai"}
+    use_ai = effective_mode in {"ai", "agentic-ai"}
+
+    if use_agentic:
         best_candidate, logs = run_agentic_tuning(
             songs=songs,
             user_profiles=user_profiles,
@@ -177,6 +199,16 @@ def main() -> None:
 
         print(f"\n=== {profile_name} ===\n")
         _print_recommendation_table(recommendations)
+
+        if use_ai:
+            summary = generate_ai_recommendation_summary(
+                user_prefs,
+                recommendations,
+                mode_label=effective_mode,
+                model_name=args.ai_model,
+            )
+            print("\n--- AI Summary ---")
+            print(summary)
 
 
 if __name__ == "__main__":

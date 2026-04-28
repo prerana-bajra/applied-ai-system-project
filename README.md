@@ -61,6 +61,38 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Local API Key Setup (Google)
+
+Store secrets in environment variables, not source code.
+
+1. Create a local env file from template:
+
+```bash
+cp .env.example .env
+```
+
+2. Add your key in `.env`:
+
+```text
+GOOGLE_API_KEY=your_key_here
+```
+
+3. Load it in your current shell session (macOS zsh):
+
+```bash
+set -a
+source .env
+set +a
+```
+
+4. Verify it is loaded:
+
+```bash
+echo "$GOOGLE_API_KEY"
+```
+
+Important: if a real key was shared in chat, rotate/regenerate it in Google Cloud Console and replace it locally.
+
 4. Run the standard recommender:
 
 ```bash
@@ -78,6 +110,26 @@ python -m src.main --agentic-tune --tune-iterations 3 --top-k 5
 ```bash
 streamlit run src/streamlit_app.py
 ```
+
+### Output Modes
+
+The app now supports four output modes:
+
+- `rule`: deterministic rule-based recommendations only.
+- `ai`: rule-based recommendations plus a Google AI-generated summary.
+- `agentic`: run the tuning loop first, then show the tuned rule-based output.
+- `agentic-ai`: run the tuning loop first, then add the Google AI-generated summary on top.
+
+CLI example:
+
+```bash
+python -m src.main --mode agentic-ai
+```
+
+Streamlit example:
+
+1. Select `agentic-ai` in the sidebar output mode.
+2. Make sure `GOOGLE_API_KEY` is set in your local `.env` file.
 
 The Streamlit demo now includes two tabs:
 
