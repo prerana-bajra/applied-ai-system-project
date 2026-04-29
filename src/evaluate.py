@@ -5,10 +5,10 @@ from copy import deepcopy
 from typing import Dict, List, Tuple
 
 try:
-    from .agentic_workflow import run_agentic_tuning
+    from .agentic_workflow import run_profile_specific_tuning
     from .recommender import load_songs, recommend_songs, score_song
 except ImportError:
-    from agentic_workflow import run_agentic_tuning
+    from agentic_workflow import run_profile_specific_tuning
     from recommender import load_songs, recommend_songs, score_song
 
 
@@ -108,7 +108,7 @@ def _normalized_confidence_lookup(user_prefs: Dict, songs: List[Dict]) -> Dict[i
 
 
 def _apply_candidate_to_profiles(profiles: Dict[str, Dict], candidate: Dict) -> Dict[str, Dict]:
-    """Apply an agentic tuning candidate to each profile.
+    """Apply one tuning candidate to each profile in the provided mapping.
 
     Copies each profile and sets `scoring_mode` and `weight_overrides`
     according to the candidate provided.
@@ -220,21 +220,21 @@ def main() -> int:
     profiles = _default_profiles()
 
     agentic_note = "disabled"
-    best_candidate: Dict = {"scoring_mode": "balanced", "weight_overrides": {}}
+    best_candidates: Dict[str, Dict] = {}
 
     if args.agentic:
-        best_candidate, _ = run_agentic_tuning(
+        best_candidates, _ = run_profile_specific_tuning(
             songs=songs,
             user_profiles=profiles,
             iterations=args.tune_iterations,
             top_k=args.top_k,
             log_path="logs/agentic_experiment_log.json",
         )
-        profiles = _apply_candidate_to_profiles(profiles, best_candidate)
-        agentic_note = (
-            f"enabled (mode={best_candidate.get('scoring_mode', 'balanced')}, "
-            f"overrides={best_candidate.get('weight_overrides', {})})"
-        )
+        tuned_profiles: Dict[str, Dict] = {}
+        for name, profile in profiles.items():
+            tuned_profiles.update(_apply_candidate_to_profiles({name: profile}, best_candidates.get(name, {})))
+        profiles = tuned_profiles
+        agentic_note = f"enabled (profile-specific tuning for {len(best_candidates)} profiles)"
 
     summary, per_profile = _evaluate_profiles(songs, profiles, args.top_k)
     objective = _objective_score(summary)

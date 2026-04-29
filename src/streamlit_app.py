@@ -7,11 +7,11 @@ import pandas as pd
 import streamlit as st
 
 try:
-    from .agentic_workflow import run_agentic_tuning
+    from .agentic_workflow import run_profile_specific_tuning
     from .google_ai import generate_ai_recommendation_summary
     from .recommender import load_songs, recommend_songs, score_song
 except ImportError:
-    from agentic_workflow import run_agentic_tuning
+    from agentic_workflow import run_profile_specific_tuning
     from google_ai import generate_ai_recommendation_summary
     from recommender import load_songs, recommend_songs, score_song
 
@@ -92,12 +92,12 @@ def _run_tuning(
     tuning_profiles: Dict[str, Dict],
     iterations: int,
     top_k: int,
-) -> Tuple[Dict, List[Dict]]:
-    """Run agentic tuning and cache results for the demo.
+) -> Tuple[Dict[str, Dict], List[Dict]]:
+    """Run profile-specific agentic tuning and cache results for the demo.
 
-    Returns the best candidate and the list of tuning logs.
+    Returns a mapping of profile names to tuned candidates and the list of logs.
     """
-    return run_agentic_tuning(
+    return run_profile_specific_tuning(
         songs=songs,
         user_profiles=tuning_profiles,
         iterations=iterations,
@@ -285,15 +285,25 @@ def main() -> None:
     baseline_profile["weight_overrides"] = {}
     baseline_profile["enable_diversity_penalty"] = enable_diversity
 
-    best_candidate = {"scoring_mode": "balanced", "weight_overrides": {}}
+    best_candidates: Dict[str, Dict] = {}
     run_logs: List[Dict] = []
     if agentic_enabled:
         with st.spinner("Running agentic tuning for comparison..."):
-            best_candidate, run_logs = _run_tuning(songs, profile_templates, tune_iterations, top_k)
+            best_candidates, run_logs = _run_tuning(
+                songs,
+                {selected_profile_name: selected_profile},
+                tune_iterations,
+                top_k,
+            )
 
     tuned_profile = deepcopy(selected_profile)
-    tuned_profile["scoring_mode"] = best_candidate.get("scoring_mode", "balanced")
-    tuned_profile["weight_overrides"] = deepcopy(best_candidate.get("weight_overrides", {}))
+    if agentic_enabled:
+        profile_candidate = best_candidates.get(selected_profile_name, {"scoring_mode": "balanced", "weight_overrides": {}})
+        tuned_profile["scoring_mode"] = profile_candidate.get("scoring_mode", "balanced")
+        tuned_profile["weight_overrides"] = deepcopy(profile_candidate.get("weight_overrides", {}))
+    else:
+        tuned_profile["scoring_mode"] = "balanced"
+        tuned_profile["weight_overrides"] = {}
     tuned_profile["enable_diversity_penalty"] = enable_diversity
 
     baseline_confidence_lookup = _confidence_lookup(baseline_profile, songs)
@@ -365,7 +375,7 @@ def main() -> None:
                     {
                         "latest_candidate": latest.get("candidate", {}),
                         "latest_metrics": latest.get("metrics", {}),
-                        "best_candidate_applied": best_candidate,
+                        "profile_specific_candidates": best_candidates,
                     }
                 )
             else:

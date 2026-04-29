@@ -5299,5 +5299,1815 @@
       "avg_top_score": 96.4156,
       "objective_score": 0.7899
     }
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.852261+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 111.0156,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.852657+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 115.4956,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.853020+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 118.3356,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.853366+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 122.5378,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.853731+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 111.0156,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.854165+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 115.4956,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.854675+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 118.3356,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.855188+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 111.0156,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.855671+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 115.4956,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:35.856034+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 118.3356,
+      "objective_score": 1.0
+    },
+    "profile_name": "High-Energy Pop"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.744637+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 110.7444,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.744972+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 115.0644,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.745312+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 117.8044,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.745643+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 122.7622,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.746045+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 110.7444,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.746476+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 115.0644,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.747041+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 117.8044,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.747721+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 110.7444,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.748108+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 115.0644,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:40.748568+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 117.8044,
+      "objective_score": 1.0
+    },
+    "profile_name": "Chill Lofi"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.543454+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 80.9622,
+      "objective_score": 0.5905
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.543905+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.544501+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 74.2822,
+      "objective_score": 0.5871
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.545510+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.546412+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.546925+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.547697+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 80.9622,
+      "objective_score": 0.5905
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.548539+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.549374+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.550184+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:51.550984+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.749628+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 111.2944,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.749961+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 114.7944,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.750544+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 118.3544,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.750985+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 122.9922,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.753034+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 111.2944,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.754151+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 114.7944,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.754590+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 118.3544,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.754927+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 111.2944,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.755247+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 114.7944,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:39:56.755566+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 118.3544,
+      "objective_score": 1.0
+    },
+    "profile_name": "Deep Intense Rock"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.461049+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 78.4622,
+      "objective_score": 0.9892
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.461420+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 88.7422,
+      "objective_score": 0.9944
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.461786+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 86.5644,
+      "objective_score": 0.9933
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.462130+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 94.5111,
+      "objective_score": 0.5973
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.462515+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 88.7422,
+      "objective_score": 0.9944
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.462921+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 86.5644,
+      "objective_score": 0.9933
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.463517+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 78.4622,
+      "objective_score": 0.9892
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.463990+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 88.7422,
+      "objective_score": 0.9944
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.464439+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 86.5644,
+      "objective_score": 0.9933
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:40:02.464998+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 1.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 78.4622,
+      "objective_score": 0.9892
+    },
+    "profile_name": "Conflict: Acoustic Raver"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.911916+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 80.9622,
+      "objective_score": 0.5905
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.913122+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.914018+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 74.2822,
+      "objective_score": 0.5871
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.914412+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.914793+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.915235+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.915745+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 80.9622,
+      "objective_score": 0.5905
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.916219+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.916643+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.917130+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.917501+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.917869+00:00",
+    "iteration": 4,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.918224+00:00",
+    "iteration": 4,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.918566+00:00",
+    "iteration": 4,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.918922+00:00",
+    "iteration": 5,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.919320+00:00",
+    "iteration": 5,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:51.919680+00:00",
+    "iteration": 5,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.044523+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 80.9622,
+      "objective_score": 0.5905
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.044956+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.045810+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 74.2822,
+      "objective_score": 0.5871
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.046645+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.047590+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.048292+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.048972+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 80.9622,
+      "objective_score": 0.5905
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.049776+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.050632+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.051373+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.052063+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.052718+00:00",
+    "iteration": 4,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.053368+00:00",
+    "iteration": 4,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.054123+00:00",
+    "iteration": 4,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.054712+00:00",
+    "iteration": 5,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.055196+00:00",
+    "iteration": 5,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.055683+00:00",
+    "iteration": 5,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.056192+00:00",
+    "iteration": 6,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.056651+00:00",
+    "iteration": 6,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 95.8778,
+      "objective_score": 0.5979
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:45:55.057084+00:00",
+    "iteration": 6,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 1.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 91.4422,
+      "objective_score": 0.5957
+    },
+    "profile_name": "Conflict: High Energy + Sad"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.335187+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 59.8744,
+      "objective_score": 0.1299
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.335555+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "genre-first",
+      "scoring_mode": "genre-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 52.9544,
+      "objective_score": 0.1265
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.335914+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 57.1544,
+      "objective_score": 0.1286
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.336419+00:00",
+    "iteration": 1,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 73.6722,
+      "objective_score": 0.1368
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.336946+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 73.6722,
+      "objective_score": 0.1368
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.337278+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 59.8744,
+      "objective_score": 0.1299
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.337628+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "mood-first",
+      "scoring_mode": "mood-first",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 57.1544,
+      "objective_score": 0.1286
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.338026+00:00",
+    "iteration": 2,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "genre": 18.0,
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 73.6722,
+      "objective_score": 0.1368
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.338424+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "energy-focused",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 73.6722,
+      "objective_score": 0.1368
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.338788+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "iter-1-adjusted",
+      "scoring_mode": "energy-focused",
+      "weight_overrides": {
+        "genre": 18.0,
+        "mood": 23.0
+      }
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 73.6722,
+      "objective_score": 0.1368
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
+  },
+  {
+    "timestamp_utc": "2026-04-29T23:48:18.339114+00:00",
+    "iteration": 3,
+    "candidate": {
+      "name": "balanced",
+      "scoring_mode": "balanced",
+      "weight_overrides": {}
+    },
+    "metrics": {
+      "profile_count": 1,
+      "genre_hit_rate": 0.0,
+      "mood_hit_rate": 0.0,
+      "explanation_rate": 1.0,
+      "avg_top_score": 59.8744,
+      "objective_score": 0.1299
+    },
+    "profile_name": "Edge: Unknown Labels + Out of Range"
   }
 ]

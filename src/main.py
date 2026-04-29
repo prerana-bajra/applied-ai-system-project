@@ -15,11 +15,11 @@ from textwrap import wrap
 
 from tabulate import tabulate
 try:
-    from .agentic_workflow import run_agentic_tuning
+    from .agentic_workflow import run_profile_specific_tuning
     from .google_ai import generate_ai_recommendation_summary
     from .recommender import load_songs, recommend_songs
 except ImportError:
-    from agentic_workflow import run_agentic_tuning
+    from agentic_workflow import run_profile_specific_tuning
     from google_ai import generate_ai_recommendation_summary
     from recommender import load_songs, recommend_songs
 
@@ -96,7 +96,7 @@ def _parse_args() -> argparse.Namespace:
 
 
 def _apply_candidate_to_profiles(user_profiles: dict[str, dict], candidate: dict) -> dict[str, dict]:
-    """Apply an agentic tuning candidate to a dictionary of profiles.
+    """Apply a tuning candidate to every profile in the provided mapping.
 
     Produces a shallow copy of `user_profiles` where each profile receives
     the candidate's `scoring_mode` and `weight_overrides` fields.
@@ -195,8 +195,9 @@ def main() -> None:
     use_agentic = args.agentic_tune or effective_mode in {"agentic", "agentic-ai"}
     use_ai = effective_mode in {"ai", "agentic-ai"}
 
+    tuned_candidates: dict[str, dict] = {}
     if use_agentic:
-        best_candidate, logs = run_agentic_tuning(
+        tuned_candidates, logs = run_profile_specific_tuning(
             songs=songs,
             user_profiles=user_profiles,
             iterations=args.tune_iterations,
@@ -205,13 +206,20 @@ def main() -> None:
         )
 
         print("\n=== Agentic Tuning Summary ===")
+        print(f"Profiles tuned: {len(tuned_candidates)}")
         print(f"Iterations logged: {len(logs)}")
-        print(f"Best scoring mode: {best_candidate.get('scoring_mode', 'balanced')}")
-        print(f"Best weight overrides: {best_candidate.get('weight_overrides', {})}\n")
-
-        user_profiles = _apply_candidate_to_profiles(user_profiles, best_candidate)
+        for profile_name, best_candidate in tuned_candidates.items():
+            print(
+                f"- {profile_name}: mode={best_candidate.get('scoring_mode', 'balanced')}, "
+                f"overrides={best_candidate.get('weight_overrides', {})}"
+            )
+        print()
 
     for profile_name, user_prefs in user_profiles.items():
+        if use_agentic:
+            profile_candidate = tuned_candidates.get(profile_name, {"scoring_mode": "balanced", "weight_overrides": {}})
+            user_prefs = _apply_candidate_to_profiles({profile_name: user_prefs}, profile_candidate)[profile_name]
+
         recommendations = recommend_songs(user_prefs, songs, k=args.top_k)
 
         print(f"\n=== {profile_name} ===\n")

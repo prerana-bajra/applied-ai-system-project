@@ -136,6 +136,7 @@ def _load_log_entries(log_path: Path) -> List[Dict]:
 
 
 def _append_log_entries(log_path: Path, entries: List[Dict]) -> None:
+    """Append tuning log entries to the JSON experiment log file."""
     log_path.parent.mkdir(parents=True, exist_ok=True)
     all_entries = _load_log_entries(log_path)
     all_entries.extend(entries)
@@ -144,14 +145,22 @@ def _append_log_entries(log_path: Path, entries: List[Dict]) -> None:
         json.dump(all_entries, file, indent=2)
 
 
-def run_agentic_tuning(
+def _run_tuning_loop(
     songs: List[Dict],
     user_profiles: Dict[str, Dict],
-    iterations: int = 3,
-    top_k: int = 5,
-    log_path: str = "logs/agentic_experiment_log.json",
+    iterations: int,
+    top_k: int,
+    log_path: str,
+    *,
+    profile_name: str | None = None,
 ) -> Tuple[Dict, List[Dict]]:
-    """Run a plan-act-check-adjust loop to tune scoring configuration."""
+    """Run the candidate search loop for one or more profiles.
+
+    The same candidate pool is evaluated repeatedly, the best candidate is
+    retained, and a small adjustment step mutates the next pool based on the
+    observed metrics. When `profile_name` is provided, log entries are tagged
+    so the caller can trace profile-specific tuning runs.
+    """
     iteration_count = max(1, int(iterations))
     pool: List[Dict] = [
         {"name": "balanced", "scoring_mode": "balanced", "weight_overrides": {}},
@@ -172,14 +181,15 @@ def run_agentic_tuning(
             metrics = _evaluate_candidate(songs, user_profiles, candidate, top_k)
             evaluated.append((candidate, metrics))
 
-            logs.append(
-                {
-                    "timestamp_utc": datetime.now(timezone.utc).isoformat(),
-                    "iteration": iteration_index + 1,
-                    "candidate": deepcopy(candidate),
-                    "metrics": metrics,
-                }
-            )
+            log_entry = {
+                "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+                "iteration": iteration_index + 1,
+                "candidate": deepcopy(candidate),
+                "metrics": metrics,
+            }
+            if profile_name is not None:
+                log_entry["profile_name"] = profile_name
+            logs.append(log_entry)
 
         evaluated.sort(key=lambda row: float(row[1].get("objective_score", 0.0)), reverse=True)
         best_candidate, best_metrics = evaluated[0]
@@ -200,3 +210,44 @@ def run_agentic_tuning(
 
     _append_log_entries(Path(log_path), logs)
     return global_best_candidate, logs
+
+
+def run_agentic_tuning(
+    songs: List[Dict],
+    user_profiles: Dict[str, Dict],
+    iterations: int = 3,
+    top_k: int = 5,
+    log_path: str = "logs/agentic_experiment_log.json",
+) -> Tuple[Dict, List[Dict]]:
+    """Run a plan-act-check-adjust loop across all profiles as one aggregate task."""
+    return _run_tuning_loop(songs, user_profiles, iterations, top_k, log_path)
+
+
+def run_profile_specific_tuning(
+    songs: List[Dict],
+    user_profiles: Dict[str, Dict],
+    iterations: int = 3,
+    top_k: int = 5,
+    log_path: str = "logs/agentic_experiment_log.json",
+) -> Tuple[Dict[str, Dict], List[Dict]]:
+    """Tune the scoring configuration separately for each profile.
+
+    Returns a mapping from profile name to the best candidate found for
+    that profile, along with the combined tuning logs.
+    """
+    tuned_candidates: Dict[str, Dict] = {}
+    combined_logs: List[Dict] = []
+
+    for profile_name, profile in user_profiles.items():
+        best_candidate, logs = _run_tuning_loop(
+            songs,
+            {profile_name: profile},
+            iterations,
+            top_k,
+            log_path,
+            profile_name=profile_name,
+        )
+        tuned_candidates[profile_name] = best_candidate
+        combined_logs.extend(logs)
+
+    return tuned_candidates, combined_logs
