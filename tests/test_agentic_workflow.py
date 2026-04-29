@@ -44,8 +44,8 @@ def test_agentic_tuning_returns_candidate_and_logs(tmp_path):
     ]
 
     user_profiles = {
-        "Pop": {"favorite_genre": "pop", "favorite_mood": "happy", "target_energy": 0.8, "likes_acoustic": False},
-        "Lofi": {"favorite_genre": "lofi", "favorite_mood": "chill", "target_energy": 0.3, "likes_acoustic": True},
+        "Pop": {"favorite_genre": "pop", "favorite_mood": "happy", "target_energy": 0.8},
+        "Lofi": {"favorite_genre": "lofi", "favorite_mood": "chill", "target_energy": 0.3},
     }
 
     log_path = tmp_path / "agentic_log.json"

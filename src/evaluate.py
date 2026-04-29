@@ -13,6 +13,11 @@ except ImportError:
 
 
 def _default_profiles() -> Dict[str, Dict]:
+    """Return a dictionary of default user profiles used for evaluation.
+
+    The profiles exercise a range of typical and edge-case preference
+    configurations to validate recommender behavior.
+    """
     return {
         "High-Energy Pop": {
             "favorite_genre": "pop",
@@ -22,7 +27,6 @@ def _default_profiles() -> Dict[str, Dict]:
             "target_valence": 0.85,
             "target_danceability": 0.88,
             "target_acousticness": 0.20,
-            "likes_acoustic": False,
         },
         "Chill Lofi": {
             "favorite_genre": "lofi",
@@ -32,7 +36,6 @@ def _default_profiles() -> Dict[str, Dict]:
             "target_valence": 0.55,
             "target_danceability": 0.45,
             "target_acousticness": 0.92,
-            "likes_acoustic": True,
         },
         "Deep Intense Rock": {
             "favorite_genre": "rock",
@@ -42,7 +45,6 @@ def _default_profiles() -> Dict[str, Dict]:
             "target_valence": 0.30,
             "target_danceability": 0.40,
             "target_acousticness": 0.10,
-            "likes_acoustic": False,
         },
         "Conflict: High Energy + Sad": {
             "favorite_genre": "pop",
@@ -52,7 +54,6 @@ def _default_profiles() -> Dict[str, Dict]:
             "target_valence": 0.15,
             "target_danceability": 0.80,
             "target_acousticness": 0.10,
-            "likes_acoustic": False,
         },
         "Conflict: Acoustic Raver": {
             "favorite_genre": "edm",
@@ -62,7 +63,6 @@ def _default_profiles() -> Dict[str, Dict]:
             "target_valence": 0.20,
             "target_danceability": 0.95,
             "target_acousticness": 0.95,
-            "likes_acoustic": True,
         },
         "Edge: Unknown Labels + Out of Range": {
             "favorite_genre": "glitch-folk",
@@ -72,12 +72,23 @@ def _default_profiles() -> Dict[str, Dict]:
             "target_valence": -0.10,
             "target_danceability": 1.10,
             "target_acousticness": -0.20,
-            "likes_acoustic": True,
         },
     }
 
 
 def _normalized_confidence_lookup(user_prefs: Dict, songs: List[Dict]) -> Dict[int, float]:
+    """Compute a normalized confidence score per song for a profile.
+
+    Scores returned by `score_song` are min-max normalized into [0, 1]
+    to provide a comparable confidence measure across songs.
+
+    Args:
+        user_prefs: Preference dictionary for scoring.
+        songs: List of song dicts to score.
+
+    Returns:
+        Mapping from song id to normalized confidence value in [0,1].
+    """
     raw_scores: Dict[int, float] = {}
     for song in songs:
         raw, _ = score_song(user_prefs, song)
@@ -97,6 +108,11 @@ def _normalized_confidence_lookup(user_prefs: Dict, songs: List[Dict]) -> Dict[i
 
 
 def _apply_candidate_to_profiles(profiles: Dict[str, Dict], candidate: Dict) -> Dict[str, Dict]:
+    """Apply an agentic tuning candidate to each profile.
+
+    Copies each profile and sets `scoring_mode` and `weight_overrides`
+    according to the candidate provided.
+    """
     updated: Dict[str, Dict] = {}
     for name, profile in profiles.items():
         p = deepcopy(profile)
@@ -107,6 +123,12 @@ def _apply_candidate_to_profiles(profiles: Dict[str, Dict], candidate: Dict) -> 
 
 
 def _evaluate_profiles(songs: List[Dict], profiles: Dict[str, Dict], top_k: int) -> Tuple[Dict, List[Dict]]:
+    """Evaluate a set of profiles against the song catalog.
+
+    For each profile, computes whether top-K recommendations match the
+    profile's favorite genre and mood, and computes an average confidence
+    score. Returns an aggregate summary and a per-profile snapshot.
+    """
     profile_count = 0
     genre_hits = 0
     mood_hits = 0

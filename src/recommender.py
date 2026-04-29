@@ -4,7 +4,12 @@ import csv
 
 
 def _normalized_similarity(value: float, target: float, max_distance: float) -> float:
-    """Return a similarity score in the range [0, 1]."""
+    """Return a similarity score in the range [0, 1].
+
+    The score is 1.0 when `value` equals `target`, and decreases linearly
+    with distance until it reaches 0.0 at `max_distance` or beyond. If
+    `max_distance` is non-positive, returns 0.0.
+    """
     if max_distance <= 0:
         return 0.0
     distance = abs(value - target)
@@ -12,6 +17,11 @@ def _normalized_similarity(value: float, target: float, max_distance: float) -> 
 
 
 def _parse_float(value, default: float) -> float:
+    """Safely parse `value` to float, returning `default` on error.
+
+    Accepts numeric strings or numeric types. Returns `default` when the
+    input is None, not a number, or cannot be converted.
+    """
     try:
         return float(value)
     except (TypeError, ValueError):
@@ -19,6 +29,11 @@ def _parse_float(value, default: float) -> float:
 
 
 def _parse_int(value, default: int) -> int:
+    """Safely parse `value` to int-like, returning `default` on error.
+
+    Converts floats/strings to int by first casting to float then to int.
+    Returns `default` for None or invalid inputs.
+    """
     try:
         return int(float(value))
     except (TypeError, ValueError):
@@ -26,6 +41,11 @@ def _parse_int(value, default: int) -> int:
 
 
 def _parse_tag_set(value) -> set[str]:
+    """Normalize a tag field into a lowercase set of tag strings.
+
+    Accepts a semicolon/comma-separated string or any iterable of values.
+    Empty or falsy inputs return an empty set.
+    """
     if not value:
         return set()
     if isinstance(value, str):
@@ -35,6 +55,12 @@ def _parse_tag_set(value) -> set[str]:
 
 
 def _get_scoring_mode(user_prefs: Dict) -> str:
+    """Determine scoring mode from user preferences.
+
+    Reads the `scoring_mode` key from `user_prefs` and returns one of
+    the canonical modes: `genre-first`, `mood-first`, `energy-focused`,
+    or `balanced` (default).
+    """
     mode = str(user_prefs.get("scoring_mode", "balanced")).strip().lower()
     if mode in {"genre-first", "genre_first", "genre"}:
         return "genre-first"
@@ -46,6 +72,12 @@ def _get_scoring_mode(user_prefs: Dict) -> str:
 
 
 def _get_mode_weights(mode: str) -> Dict[str, float]:
+    """Return a dictionary of feature weights for the given scoring mode.
+
+    The returned weights are used to compute a weighted score from
+    per-feature similarity measures. Mode-specific adjustments are
+    applied for `genre-first`, `mood-first`, and `energy-focused` modes.
+    """
     base_weights = {
         "genre": 15.0,
         "mood": 20.0,
@@ -177,7 +209,6 @@ class UserProfile:
     favorite_genre: str
     favorite_mood: str
     target_energy: float
-    likes_acoustic: bool
     target_popularity: float = 55.0
     preferred_release_decade: int = 2000
     preferred_mood_tags: str = ""
@@ -190,9 +221,20 @@ class Recommender:
     Required by tests/test_recommender.py
     """
     def __init__(self, songs: List[Song]):
+        """Create a `Recommender` with a list of `Song` objects.
+
+        Args:
+            songs: List of `Song` dataclass instances to consider.
+        """
         self.songs = songs
 
     def recommend(self, user: UserProfile, k: int = 5) -> List[Song]:
+        """Return the top-`k` recommended `Song` objects for `user`.
+
+        The method scores each candidate song against the user's
+        preferences and applies diversity reranking before returning the
+        final `k` results.
+        """
         user_prefs = asdict(user)
         scored_items: List[Tuple[Dict, float, str]] = []
         song_lookup: Dict[int, Song] = {}
@@ -207,6 +249,11 @@ class Recommender:
         return [song_lookup[int(item[0]["id"])] for item in ranked_items]
 
     def explain_recommendation(self, user: UserProfile, song: Song) -> str:
+        """Return a human-readable explanation for why `song` was scored for `user`.
+
+        Runs the same scoring logic and joins the reasons into a single
+        explanation string.
+        """
         _, reasons = score_song(asdict(user), asdict(song))
         return "; ".join(reasons)
 
@@ -240,7 +287,12 @@ def load_songs(csv_path: str) -> List[Dict]:
     return songs
 
 def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
-    """Score a song against user preferences."""
+    """Score a song against user preferences.
+
+    Returns a tuple of (score, reasons) where `score` is a numeric value
+    and `reasons` is a list of short human-readable explanations for the
+    main contributors to the score.
+    """
     reasons: List[str] = []
     mode = _get_scoring_mode(user_prefs)
     weights = _get_mode_weights(mode)

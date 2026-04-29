@@ -17,6 +17,11 @@ except ImportError:
 
 
 def _demo_profiles() -> Dict[str, Dict]:
+    """Return a small set of demo user profiles for the Streamlit demo.
+
+    Profiles include common listening personas and a few edge/conflict
+    cases used to demonstrate the system's behavior.
+    """
     return {
         "High-Energy Pop": {
             "favorite_genre": "pop",
@@ -26,7 +31,6 @@ def _demo_profiles() -> Dict[str, Dict]:
             "target_valence": 0.85,
             "target_danceability": 0.88,
             "target_acousticness": 0.20,
-            "likes_acoustic": False,
         },
         "Chill Lofi": {
             "favorite_genre": "lofi",
@@ -36,7 +40,6 @@ def _demo_profiles() -> Dict[str, Dict]:
             "target_valence": 0.55,
             "target_danceability": 0.45,
             "target_acousticness": 0.92,
-            "likes_acoustic": True,
         },
         "Deep Intense Rock": {
             "favorite_genre": "rock",
@@ -46,7 +49,6 @@ def _demo_profiles() -> Dict[str, Dict]:
             "target_valence": 0.30,
             "target_danceability": 0.40,
             "target_acousticness": 0.10,
-            "likes_acoustic": False,
         },
         "Conflict: High Energy + Sad": {
             "favorite_genre": "pop",
@@ -56,7 +58,6 @@ def _demo_profiles() -> Dict[str, Dict]:
             "target_valence": 0.15,
             "target_danceability": 0.80,
             "target_acousticness": 0.10,
-            "likes_acoustic": False,
         },
         "Conflict: Acoustic Raver": {
             "favorite_genre": "edm",
@@ -66,7 +67,6 @@ def _demo_profiles() -> Dict[str, Dict]:
             "target_valence": 0.20,
             "target_danceability": 0.95,
             "target_acousticness": 0.95,
-            "likes_acoustic": True,
         },
         "Edge: Unknown Labels + Out of Range": {
             "favorite_genre": "glitch-folk",
@@ -76,13 +76,13 @@ def _demo_profiles() -> Dict[str, Dict]:
             "target_valence": -0.10,
             "target_danceability": 1.10,
             "target_acousticness": -0.20,
-            "likes_acoustic": True,
         },
     }
 
 
 @st.cache_data(show_spinner=False)
 def _load_catalog(csv_path: str) -> List[Dict]:
+    """Load and cache the song catalog from CSV for the Streamlit app."""
     return load_songs(csv_path)
 
 
@@ -93,6 +93,10 @@ def _run_tuning(
     iterations: int,
     top_k: int,
 ) -> Tuple[Dict, List[Dict]]:
+    """Run agentic tuning and cache results for the demo.
+
+    Returns the best candidate and the list of tuning logs.
+    """
     return run_agentic_tuning(
         songs=songs,
         user_profiles=tuning_profiles,
@@ -103,10 +107,15 @@ def _run_tuning(
 
 
 def _ai_summary(user_prefs: Dict, recommendations: List[tuple[Dict, float, str]], mode_label: str) -> str:
+    """Return a short AI-generated summary for the provided recommendations."""
     return generate_ai_recommendation_summary(user_prefs, recommendations, mode_label=mode_label)
 
 
 def _confidence_lookup(user_prefs: Dict, songs: List[Dict]) -> Dict[int, float]:
+    """Compute per-song normalized confidence scores for the active profile.
+
+    Normalizes raw scores produced by `score_song` to the [0, 1] range.
+    """
     raw_scores: Dict[int, float] = {}
     for song in songs:
         raw_score, _ = score_song(user_prefs, song)
@@ -126,6 +135,10 @@ def _confidence_lookup(user_prefs: Dict, songs: List[Dict]) -> Dict[int, float]:
 
 
 def _recommendation_table(user_prefs: Dict, songs: List[Dict], top_k: int) -> pd.DataFrame:
+    """Return a `pandas.DataFrame` representing top-k recommendations for UI display.
+
+    Columns include rank, title, artist, feature-based score, confidence, and reasoning.
+    """
     confidence_by_song = _confidence_lookup(user_prefs, songs)
     recommendations = recommend_songs(user_prefs, songs, k=top_k)
 
@@ -150,6 +163,10 @@ def _recommendation_table(user_prefs: Dict, songs: List[Dict], top_k: int) -> pd
 
 
 def _build_user_profile_controls(selected_profile: Dict) -> Dict:
+    """Render sidebar controls to optionally edit a selected profile.
+
+    Returns a possibly-modified profile dict based on user input widgets.
+    """
     profile = deepcopy(selected_profile)
     st.sidebar.markdown("### Optional custom edits")
 
@@ -160,12 +177,15 @@ def _build_user_profile_controls(selected_profile: Dict) -> Dict:
     profile["target_valence"] = st.sidebar.slider("Target valence", -0.2, 1.0, float(profile["target_valence"]), 0.01)
     profile["target_danceability"] = st.sidebar.slider("Target danceability", 0.0, 1.1, float(profile["target_danceability"]), 0.01)
     profile["target_acousticness"] = st.sidebar.slider("Target acousticness", -0.2, 1.0, float(profile["target_acousticness"]), 0.01)
-    profile["likes_acoustic"] = st.sidebar.checkbox("Likes acoustic songs", value=bool(profile["likes_acoustic"]))
 
     return profile
 
 
 def _diff_summary(before: pd.DataFrame, after: pd.DataFrame) -> Dict[str, str]:
+    """Return a compact summary of changes between two recommendation tables.
+
+    The result includes titles added, removed, and the change in average score.
+    """
     before_titles = set(before["Title"].tolist()) if not before.empty else set()
     after_titles = set(after["Title"].tolist()) if not after.empty else set()
 
@@ -183,6 +203,7 @@ def _diff_summary(before: pd.DataFrame, after: pd.DataFrame) -> Dict[str, str]:
 
 
 def _confidence_distribution_frame(confidence_lookup: Dict[int, float], label: str) -> pd.DataFrame:
+    """Build a DataFrame showing binned confidence distribution for plotting."""
     if not confidence_lookup:
         return pd.DataFrame(columns=["Range", "Count", "System"])
 
@@ -196,6 +217,7 @@ def _confidence_distribution_frame(confidence_lookup: Dict[int, float], label: s
 
 
 def _rank_shift_frame(before: pd.DataFrame, after: pd.DataFrame) -> pd.DataFrame:
+    """Create a table capturing rank shifts between baseline and agentic outputs."""
     before_slice = before[["Title", "Rank", "Score", "ConfidenceScore"]].rename(
         columns={
             "Rank": "BaselineRank",
@@ -225,6 +247,7 @@ def _rank_shift_frame(before: pd.DataFrame, after: pd.DataFrame) -> pd.DataFrame
 
 
 def main() -> None:
+    """Launch the Streamlit demo app showing recommender outputs and analytics."""
     st.set_page_config(page_title="BeatBuddy 2.0", layout="wide")
     st.title("BeatBuddy 2.0: Baseline, AI Output, and Agentic Tuning")
 

@@ -13,6 +13,12 @@ except ImportError:
 
 
 def _candidate_signature(candidate: Dict) -> str:
+    """Create a stable signature string for a candidate configuration.
+
+    The signature encodes the scoring mode and a sorted list of weight
+    override (name, value) pairs so that equivalent configurations can be
+    detected across iterations.
+    """
     mode = str(candidate.get("scoring_mode", "balanced"))
     overrides = candidate.get("weight_overrides", {}) or {}
     ordered = sorted((str(key), float(value)) for key, value in overrides.items())
@@ -25,6 +31,14 @@ def _evaluate_candidate(
     candidate: Dict,
     top_k: int,
 ) -> Dict:
+    """Evaluate a single candidate across multiple user profiles.
+
+    For each profile the function applies the candidate's scoring
+    configuration, computes top-k recommendations, and accumulates metrics
+    such as genre/mood hit rates, explanation coverage, and average top
+    score. Returns a dictionary of aggregated metrics and an objective
+    score used for ranking candidates.
+    """
     profile_count = 0
     genre_hits = 0
     mood_hits = 0

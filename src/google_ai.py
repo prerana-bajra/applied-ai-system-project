@@ -7,6 +7,13 @@ from typing import Dict, List, Sequence
 
 
 def _read_key_from_env_file() -> str:
+    """Read `GOOGLE_API_KEY` from a repository-level `.env` file if present.
+
+    The function looks for a `.env` in the repository root (two levels up
+    from this module) and attempts to parse `GOOGLE_API_KEY=` lines,
+    supporting optional `export ` prefixes and quoted values.
+    Returns the key string or an empty string if not found.
+    """
     env_path = Path(__file__).resolve().parents[1] / ".env"
     if not env_path.exists():
         return ""
@@ -36,6 +43,11 @@ def _read_key_from_env_file() -> str:
 
 
 def _read_key_from_streamlit_secrets() -> str:
+    """Attempt to read `GOOGLE_API_KEY` from Streamlit secrets if available.
+
+    Returns the secret value or an empty string if Streamlit is not
+    installed or the secret is missing.
+    """
     try:
         import streamlit as st
         from streamlit.errors import StreamlitSecretNotFoundError
@@ -51,6 +63,15 @@ def _read_key_from_streamlit_secrets() -> str:
 
 
 def get_google_api_key() -> str:
+    """Return the Google API key using several fallback sources.
+
+    Order of precedence:
+      1. `GOOGLE_API_KEY` environment variable
+      2. Streamlit `secrets` (if available)
+      3. repository `.env` file
+
+    Returns an empty string if no key is found.
+    """
     env_value = str(os.getenv("GOOGLE_API_KEY", "")).strip()
     if env_value:
         return env_value
@@ -63,6 +84,11 @@ def get_google_api_key() -> str:
 
 
 def _format_recommendations(recommendations: Sequence[tuple[Dict, float, str]]) -> str:
+    """Format ranked recommendations into a simple plain-text list.
+
+    Each item includes the rank, title, artist, genre, mood, and score;
+    explanations (if present) are included on the following line.
+    """
     lines: List[str] = []
     for index, (song, score, explanation) in enumerate(recommendations, start=1):
         lines.append(
@@ -79,6 +105,10 @@ def _fallback_summary(
     *,
     reason: str,
 ) -> str:
+    """Return a concise fallback summary when the AI call is unavailable.
+
+    Includes the top recommendation (if any) and the provided reason.
+    """
     if not recommendations:
         return f"Google AI summary is unavailable ({reason})."
 
@@ -100,6 +130,23 @@ def generate_ai_recommendation_summary(
     model_name: str = "gemini-flash-latest",
     api_key: str | None = None,
 ) -> str:
+    """Generate a short user-facing summary for ranked recommendations using Gemini.
+
+    This function tries to obtain an API key via `get_google_api_key`,
+    constructs a prompt describing the user preferences and ranked
+    recommendations, and calls the GenAI client. It includes sensible
+    fallbacks when the client or key are unavailable.
+
+    Args:
+        user_prefs: The user's preference dict passed to the recommender.
+        recommendations: Sequence of `(song_dict, score, explanation)` tuples.
+        mode_label: Label describing how the recommendations were produced.
+        model_name: Preferred Gemini model name.
+        api_key: Optional explicit API key to use instead of environment.
+
+    Returns:
+        A short human-readable summary string.
+    """
     key = api_key or get_google_api_key()
     if not key:
         return "Google AI summary is unavailable because GOOGLE_API_KEY is not set."

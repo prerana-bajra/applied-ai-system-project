@@ -35,7 +35,6 @@ def test_recommend_returns_songs_sorted_by_score():
         favorite_genre="pop",
         favorite_mood="happy",
         target_energy=0.8,
-        likes_acoustic=False,
     )
     rec = make_small_recommender()
     results = rec.recommend(user, k=2)
@@ -51,7 +50,6 @@ def test_explain_recommendation_returns_non_empty_string():
         favorite_genre="pop",
         favorite_mood="happy",
         target_energy=0.8,
-        likes_acoustic=False,
     )
     rec = make_small_recommender()
     song = rec.songs[0]
@@ -66,7 +64,6 @@ def test_score_song_respects_weight_overrides():
         "favorite_genre": "pop",
         "favorite_mood": "happy",
         "target_energy": 0.8,
-        "likes_acoustic": False,
     }
     song = {
         "id": 1,

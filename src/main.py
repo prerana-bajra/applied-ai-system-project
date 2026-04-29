@@ -28,6 +28,11 @@ except ImportError:
 
 
 def _print_recommendation_table(recommendations: list[tuple[dict, float, str]]) -> None:
+    """Pretty-print a list of recommendation tuples as a table.
+
+    Args:
+        recommendations: Sequence of `(song_dict, score, explanation)` tuples.
+    """
     headers = ["#", "Title", "Artist", "Genre", "Score", "Reasons"]
     rows: list[list[str]] = []
 
@@ -49,6 +54,7 @@ def _print_recommendation_table(recommendations: list[tuple[dict, float, str]]) 
 
 
 def _parse_args() -> argparse.Namespace:
+    """Parse and return CLI arguments for the runner."""
     parser = argparse.ArgumentParser(description="Run the music recommender with optional agentic tuning.")
     parser.add_argument(
         "--mode",
@@ -90,6 +96,18 @@ def _parse_args() -> argparse.Namespace:
 
 
 def _apply_candidate_to_profiles(user_profiles: dict[str, dict], candidate: dict) -> dict[str, dict]:
+    """Apply an agentic tuning candidate to a dictionary of profiles.
+
+    Produces a shallow copy of `user_profiles` where each profile receives
+    the candidate's `scoring_mode` and `weight_overrides` fields.
+
+    Args:
+        user_profiles: Mapping from profile name to preference dict.
+        candidate: A tuning candidate dict produced by the agentic loop.
+
+    Returns:
+        A new dict of tuned profiles suitable for passing to the recommender.
+    """
     tuned_profiles: dict[str, dict] = {}
     for profile_name, profile in user_profiles.items():
         tuned_profile = deepcopy(profile)
@@ -100,6 +118,11 @@ def _apply_candidate_to_profiles(user_profiles: dict[str, dict], candidate: dict
 
 
 def main() -> None:
+    """Entry point for the CLI runner.
+
+    Loads songs, optionally runs agentic tuning, and prints recommendations
+    (and an optional AI summary) for each profile defined in the script.
+    """
     args = _parse_args()
     effective_mode = args.mode
     if args.agentic_tune and effective_mode == "rule":
@@ -118,7 +141,6 @@ def main() -> None:
             "target_valence": 0.85,
             "target_danceability": 0.88,
             "target_acousticness": 0.20,
-            "likes_acoustic": False,
         },
         "Chill Lofi": {
             "favorite_genre": "lofi",
@@ -128,7 +150,6 @@ def main() -> None:
             "target_valence": 0.55,
             "target_danceability": 0.45,
             "target_acousticness": 0.92,
-            "likes_acoustic": True,
         },
         "Deep Intense Rock": {
             "favorite_genre": "rock",
@@ -138,7 +159,6 @@ def main() -> None:
             "target_valence": 0.30,
             "target_danceability": 0.40,
             "target_acousticness": 0.10,
-            "likes_acoustic": False,
         },
         # Adversarial profile: asks for very high energy but a sad mood.
         "Conflict: High Energy + Sad": {
@@ -149,7 +169,6 @@ def main() -> None:
             "target_valence": 0.15,
             "target_danceability": 0.80,
             "target_acousticness": 0.10,
-            "likes_acoustic": False,
         },
         # Adversarial profile: pushes features to opposite extremes.
         "Conflict: Acoustic Raver": {
@@ -160,7 +179,6 @@ def main() -> None:
             "target_valence": 0.20,
             "target_danceability": 0.95,
             "target_acousticness": 0.95,
-            "likes_acoustic": True,
         },
         # Adversarial profile: unknown labels and out-of-range targets.
         "Edge: Unknown Labels + Out of Range": {
@@ -171,7 +189,6 @@ def main() -> None:
             "target_valence": -0.10,
             "target_danceability": 1.10,
             "target_acousticness": -0.20,
-            "likes_acoustic": True,
         },
     }
 
