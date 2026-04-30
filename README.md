@@ -50,6 +50,72 @@ Data flow: input profile and song catalog → scoring and ranking → recommenda
 - **Streamlit UI** (`src/streamlit_app.py`): Four-tab interactive demo with sidebar profile selector, output mode toggle (`rule` / `ai` / `agentic` / `agentic-ai`), and controls for top-K and tuning iterations. Tabs: Recommendations (baseline vs active side-by-side), Rule-Based Baseline (weight table + scoring formula), Agentic Iterations (per-iteration diffs vs baseline), and Analytics (confidence distribution + rank shift).
 - **Human-in-the-loop Check**: Reviews recommendations and logs for plausibility, diversity, and potential bias.
 
+## Scoring Logic
+
+### Rule-Based Scorer
+
+Every song in the catalog is scored by summing per-feature similarity values multiplied by feature weights:
+
+```
+Total Score = Σ (Feature Similarity × Feature Weight)
+```
+
+Feature similarities are computed independently (genre/mood exact match → 1 or 0; numeric features → 1 − |song_value − target_value|). The 12 features and their **balanced** baseline weights are:
+
+| Feature | Balanced Weight | What it measures |
+|---------|----------------|-----------------|
+| energy | 24 | Proximity to target energy level |
+| mood | 20 | Exact mood label match |
+| genre | 15 | Exact genre label match |
+| valence | 12 | Emotional positivity |
+| danceability | 10 | Rhythmic danceability |
+| tempo | 10 | BPM proximity to target |
+| popularity | 8 | Social proof signal |
+| decade | 8 | Era / decade preference |
+| mood_tags | 7 | Tag-level mood similarity |
+| acousticness | 6 | Acoustic texture |
+| instrumental | 5 | Vocal vs. instrumental preference |
+| mood_confidence | 3 | Data quality signal |
+
+The scorer supports four built-in modes that shift which features dominate:
+
+| Mode | Key weight changes |
+|------|--------------------|
+| `balanced` | Base weights above — no adjustments |
+| `genre-first` | genre→32, mood→14, energy→20 |
+| `mood-first` | mood→34, genre→12, energy→18, mood_tags→10 |
+| `energy-focused` | energy→38, tempo→14, danceability→12, mood→16 |
+
+After scoring, a diversity penalty is optionally applied to reduce repeated artist/genre in top results.
+
+### Agentic Tuning Loop
+
+The agentic layer treats scoring mode and feature weights as tunable parameters and runs a **plan → act → evaluate → adjust** loop independently per user profile:
+
+1. **Plan** — initialize a pool of 4 candidates (one per built-in mode, no weight overrides).
+2. **Act** — run the rule-based scorer for each candidate against the profile's song catalog.
+3. **Evaluate** — compute per-candidate metrics and an objective score:
+
+```
+Objective Score = 0.45 × genre_hit_rate
+               + 0.40 × mood_hit_rate
+               + 0.10 × explanation_rate
+               + 0.05 × min(avg_top_score / 100, 1.0)
+```
+
+Genre and mood hit rates (45 % + 40 % = 85 % combined) dominate because they capture explicit user-intent matches. Raw numeric score contributes only 5 %.
+
+4. **Adjust** — keep the top-3 candidates, then build a mutated candidate from the best:
+   - If `genre_hit_rate < 0.75`: boost genre weight by +3
+   - If `mood_hit_rate < 0.75`: boost mood weight by +3
+   - If `avg_top_score < 70`: boost energy by +2 and tempo by +1
+   - If `explanation_rate < 1.0`: boost mood_tags by +1
+   - **Always** fine-tune one additional feature in round-robin order (energy → valence → danceability → acousticness → tempo → popularity), scaled by iteration index — this guarantees a unique candidate each iteration even when all metrics already exceed their thresholds.
+
+5. Repeat for N iterations; the candidate with the highest objective score across all iterations becomes the final tuned configuration for that profile.
+
+Each profile converges independently, so a chill lofi listener and a high-energy pop listener produce different scoring modes and weight overrides.
+
 ## Setup Instructions
 
 1. Clone the repository and move into the project folder.
