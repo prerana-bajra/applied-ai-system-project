@@ -257,17 +257,96 @@ The **Agentic Iterations** tab (visible in `agentic` and `agentic-ai` modes) sho
    - Benefit: the ranking stays fully deterministic and auditable; the LLM cannot alter the recommendation logic or introduce hallucinated rankings.
    - Trade-off: the natural-language summary quality depends on Gemini availability; fallback returns the top recommendation plus its rule-based explanation.
 
+## Guardrails and Quality Control
+
+The system includes multiple guardrails to ensure recommendations remain transparent, diverse, and aligned with user intent — preventing misuse and maintaining quality:
+
+### **Algorithmic Guardrails**
+
+1. **Objective function weighting** — user-intent matches (genre + mood) comprise 85% of the scoring decision; raw numeric scores only 5%. This prevents the system from being hijacked into engagement-maximization or other adversarial objectives that conflict with user wellbeing.
+
+2. **Metric-driven adjustments** — weight mutations only trigger when specific thresholds are missed:
+   - `genre_hit_rate < 0.75` → boost genre weight
+   - `mood_hit_rate < 0.75` → boost mood weight
+   - `avg_top_score < 70` → boost energy and tempo
+   - `explanation_rate < 1.0` → boost mood_tags
+   
+   This prevents over-tuning when performance is already strong.
+
+3. **Round-robin feature exploration** — each iteration always explores a new feature weight (energy → valence → danceability → acousticness → tempo → popularity, cycling), scaled by iteration index. Guarantees novel candidates even when all metrics are already satisfied — prevents iteration stalling and ensures genuine exploration.
+
+4. **Deduplication via `seen_signatures`** — identical candidate configurations are never re-evaluated. Prevents wasted compute and makes the tuning loop deterministic.
+
+5. **Diversity penalty** — repeated artist/genre in top-K results are penalized, reducing narrow content loops.
+
+### **Transparency and Auditability**
+
+6. **Rule-based scoring (not black-box ML)** — all scores trace directly back to explicit feature weights. Every recommendation includes a feature-level explanation showing which genres/moods matched and how numeric features contributed. No hidden ranking logic.
+
+7. **Google AI as presentation layer only** — Gemini receives the final ranked list with explanations and generates a conversational summary. It cannot alter the recommendation order, inject new songs, or produce hallucinated rankings. The deterministic scorer remains the source of truth.
+
+8. **Graceful fallback** — if the Gemini API is unavailable, the system falls back to the top recommendation plus its rule-based explanation rather than degrading silently.
+
+9. **Per-profile tuning audit trail** — every agentic iteration is logged to `logs/agentic_experiment_log.json` with a `profile_name` tag, enabling per-profile traceability. Each log entry includes timestamp, candidate configuration, metrics, and objective score — supporting full reconstruction and audit of tuning decisions.
+
+10. **Explanation rate enforcement** — a metric ensures that 100% of recommendations across a profile include a non-blank explanation. Any candidate failing this check is discarded, maintaining output quality.
+
+### **Human-in-the-Loop Oversight**
+
+11. **Manual output inspection** — recommendations are reviewed for plausibility, diversity, and absence of bias before deployment decisions. The Streamlit UI's per-iteration diff view makes this inspection structural and efficient.
+
+12. **Policy-level checks** — configurations can be validated against organization-level policies (e.g., no engagement-maximizing objectives, mandatory diversity thresholds) before live deployment.
+
 ## Reliability and Evaluation: How I Test and Improve the AI
 
-This project includes multiple reliability checks so performance is measured, not assumed.
+This project includes multiple reliability checks so performance is measured, not assumed. Evaluation happens at three levels: unit testing, metric-driven validation, and human-guided review.
 
-- **Automated tests**: `python -m pytest -q` currently reports **4 out of 4 tests passed**.
-- **Metric-based evaluation**: each agentic candidate run computes `genre_hit_rate`, `mood_hit_rate`, `explanation_rate`, and `objective_score` — separately per profile for per-profile tuning runs.
-- **Objective score formula**: `(0.45 × genre_hit_rate) + (0.40 × mood_hit_rate) + (0.10 × explanation_rate) + (0.05 × normalized_avg_top_score)`. This prioritizes explicit user-intent matches (genre, mood) over raw numeric scores.
-- **Confidence-like signal**: the `objective_score` (0 to 1) is used as a confidence proxy when comparing candidate scoring configurations across iterations.
-- **Logging and error handling**: every tuning step is stored in `logs/agentic_experiment_log.json` with a `profile_name` tag for per-profile traceability; log loading is fail-safe and defaults to an empty history if JSON is missing or corrupt.
-- **Iteration integrity**: the `seen_signatures` deduplication set prevents the same candidate configuration from being evaluated twice, while the round-robin exploration step guarantees each iteration adds at least one genuinely new configuration to test.
-- **Human evaluation**: recommendation outputs are manually inspected for plausibility, diversity, and explanation quality. The Streamlit UI's per-iteration diff view makes this inspection structural — you can see exactly which songs were added or removed at each step.
+### **Automated Testing**
+
+- **Unit tests**: `python -m pytest -q` currently reports **4 out of 4 tests passed**, covering core recommendation behavior, weight override application, profile-specific tuning, and end-to-end logging.
+
+### **Metric-Based Evaluation (Per Candidate)**
+
+Every candidate configuration is evaluated using a four-component scorecard:
+
+| Metric | Definition | Target |
+|--------|-----------|--------|
+| `genre_hit_rate` | Fraction of profiles whose favorite genre appears in top-K | 1.0 (100%) |
+| `mood_hit_rate` | Fraction of profiles whose favorite mood appears in top-K | 1.0 (100%) |
+| `explanation_rate` | Fraction of profiles where all top-K recommendations have non-blank explanations | 1.0 (100%) |
+| `avg_top_score` | Average score of the #1 recommendation across all profiles | 70+ |
+
+**Objective Score Formula** — combines these into a decision metric:
+
+```
+Objective Score = (0.45 × genre_hit_rate)
+                + (0.40 × mood_hit_rate)
+                + (0.10 × explanation_rate)
+                + (0.05 × min(avg_top_score / 100, 1.0))
+```
+
+The 85% weighting on genre + mood captures explicit user intent; only 5% comes from raw numeric scores. This ensures the optimization loop prioritizes user-stated preferences over engagement-maximizing heuristics.
+
+### **Per-Profile Evaluation**
+
+When running `run_profile_specific_tuning`, evaluation is **per-profile**, not aggregated:
+
+- Each profile runs its own tuning loop independently
+- Metrics are computed separately for that profile's preferences
+- Log entries are tagged with `profile_name` for traceability
+- Allows chill lofi listeners and high-energy pop listeners to converge on different configurations
+
+### **Iteration Tracking and Validation**
+
+- **Logging and auditability**: Every tuning step is stored in `logs/agentic_experiment_log.json` with timestamp, iteration number, candidate configuration, and metrics. Log loading is fail-safe — defaults to empty history if JSON is missing or corrupt.
+- **Iteration integrity**: The `seen_signatures` deduplication set prevents the same candidate configuration from being evaluated twice, while the round-robin exploration step guarantees each iteration adds at least one genuinely new configuration to test.
+- **Comparison across iterations**: The Streamlit UI displays metric evolution charts (genre hit, mood hit, objective score) across iterations, revealing whether tuning is converging upward or stalling.
+
+### **Human Evaluation**
+
+- **Output review**: Recommendation outputs are manually inspected for plausibility, diversity, absence of repetitive artists/genres, and quality of explanations.
+- **Structural inspection**: The Streamlit UI's per-iteration diff view makes review efficient — you can see exactly which songs were added or removed at each step compared to the baseline.
+- **Bias and fairness check**: Manual review flags potential biases (e.g., over-representation of mainstream genres, under-representation of niche styles) and diversity issues.
 
 ### Quantitative Summary
 
