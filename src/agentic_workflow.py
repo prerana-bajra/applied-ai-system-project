@@ -93,9 +93,19 @@ def _evaluate_candidate(
     }
 
 
+_EXPLORE_SEQUENCE = [
+    ("energy", 24.0, 2.0),
+    ("valence", 12.0, 2.0),
+    ("danceability", 10.0, 2.0),
+    ("acousticness", 6.0, 1.5),
+    ("tempo", 10.0, 2.0),
+    ("popularity", 8.0, 1.5),
+]
+
+
 def _build_adjusted_candidate(best_candidate: Dict, best_metrics: Dict, iteration_index: int) -> Dict:
     adjusted = deepcopy(best_candidate)
-    overrides = deepcopy(adjusted.get("weight_overrides", {}))
+    overrides = deepcopy(adjusted.get("weight_overrides", {}) or {})
 
     def get_weight(key: str, default: float) -> float:
         value = overrides.get(key, default)
@@ -104,6 +114,7 @@ def _build_adjusted_candidate(best_candidate: Dict, best_metrics: Dict, iteratio
         except (TypeError, ValueError):
             return default
 
+    # Fix underperforming dimensions first.
     if float(best_metrics.get("genre_hit_rate", 0.0)) < 0.75:
         overrides["genre"] = get_weight("genre", 15.0) + 3.0
 
@@ -116,6 +127,13 @@ def _build_adjusted_candidate(best_candidate: Dict, best_metrics: Dict, iteratio
 
     if float(best_metrics.get("explanation_rate", 0.0)) < 1.0:
         overrides["mood_tags"] = get_weight("mood_tags", 7.0) + 1.0
+
+    # Always fine-tune one additional feature in round-robin order so the
+    # adjusted candidate is never a duplicate of an already-seen configuration.
+    # Without this, a well-performing first iteration produces a no-op adjusted
+    # candidate whose signature collides with the base, stalling exploration.
+    explore_key, explore_default, explore_step = _EXPLORE_SEQUENCE[iteration_index % len(_EXPLORE_SEQUENCE)]
+    overrides[explore_key] = get_weight(explore_key, explore_default) + explore_step * (iteration_index + 1)
 
     adjusted["name"] = f"iter-{iteration_index + 1}-adjusted"
     adjusted["weight_overrides"] = overrides
